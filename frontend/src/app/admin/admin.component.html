@@ -57,18 +57,18 @@
             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseBancos"
                 aria-expanded="true" aria-controls="collapseBancos">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Bancos </span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <span>Productos</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                 <i class="fa fa-chevron-down"></i>
             </a>
             <div id="collapseBancos" class="collapse" aria-labelledby="headingBancos"
                 data-bs-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <input #bank type="hidden" id="bank" value="banco">
-                    <a class="collapse-item" (click)=activarComponente(1) (click)="getInputValue(bank.value)">
+                    <input #producto type="hidden" id="producto" value="producto">
+                    <a class="collapse-item" (click)=activarComponente(1) (click)="getInputValue(producto.value)">
                         Agregar </a>
-                    <a class="collapse-item" (click)=activarComponente(2) (click)="getInputValue(bank.value)">Nómina</a>
+                    <a class="collapse-item" (click)=activarComponente(2) (click)="getInputValue(producto.value)">Nómina</a>
                     <a class="collapse-item" (click)=activarComponente(3)
-                        (click)="getInputValue(bank.value)">Actualizar</a>
+                        (click)="getInputValue(producto.value)">Actualizar</a>
                     <!-- <a class="collapse-item" (click)=activarComponente(4)
                         (click)="getInputValue(bank.value)">Desactivados
                     </a> -->
@@ -113,13 +113,13 @@
                             <div class="card-body p-0">
                                 <div class="p-5">
                                     <div>
-                                        <div *ngIf="data">
+                                        <div *ngIf="admin">
                                             <h5>Su información: </h5>
-                                            <p>Nombre: {{data.nombre}}</p>
-                                            <p>Apellido: {{data.apellido}}</p>
-                                            <p>Identificacion: {{data.identificacion}}</p>
-                                            <p>Email: {{data.usuario.email}}</p>
-                                            <p>Nickname: {{data.usuario.nickname}}</p>
+                                            <p>Nombre: {{admin.nombre}}</p>
+                                            <p>Apellido: {{admin.apellido}}</p>
+                                            <p>Identificacion: {{admin.identificacion}}</p>
+                                            <p>Email: {{admin.usuario.email}}</p>
+                                            <p>Nickname: {{admin.usuario.nickname}}</p>
                                         </div>
                                     </div>
 
@@ -129,7 +129,7 @@
 
                     </div>
 
-                    <div class="container">
+                    <!-- <div class="container">
                         <div class="card o-hidden border-0 shadow-lg my-5">
                             <div class="card-body p-0">
                                 <div class="p-5">
@@ -158,7 +158,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                 </div>
 
                 <div *ngIf="option == 1">

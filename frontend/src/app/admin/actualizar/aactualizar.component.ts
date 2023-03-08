@@ -3,7 +3,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
-import { BancoB } from 'src/app/models/banco';
 import axios from 'axios';
 
 import { Router } from '@angular/router';
@@ -11,6 +10,8 @@ import { CuentaB } from 'src/app/models/cuenta';
 import { Subject } from 'rxjs';
 import { MasterService } from 'src/app/service/login.service';
 import { AdminService } from '../service/admin.service';
+import { EmpleadoF } from 'src/app/models/empleadoF';
+import { ProductoF } from 'src/app/models/productoF';
 
 
 @Component({
@@ -22,14 +23,13 @@ import { AdminService } from '../service/admin.service';
 export class AactualizarComponent implements OnInit {
     title = "Actualizar";
     @Input() objR: string;
-    public cta: CuentaB;
     public updateState:boolean = false
 
 
-    public usuario: any;  //empleado
-    public banco: BancoB;
-    empleados: any;
-    bancos: any;
+    public empleado: EmpleadoF;  //empleado
+    public producto: ProductoF;
+    public empleados: EmpleadoF[] = [];
+    public productos: ProductoF[] = [];
 
 
     opcion: number = 3;
@@ -43,18 +43,18 @@ export class AactualizarComponent implements OnInit {
         private service: MasterService,
         private _AdminService:AdminService
     ) {
-        this.usuario = null;
-        this.banco = new BancoB('', '', '', "", "", "", "");
+        this.empleado = new EmpleadoF("", "", "", "", {email: "", nickname: ""}, "", true)
+        this.producto = new ProductoF("", 0, "", "")
 
         this._AdminService.getEmpleados().subscribe(resp=>{
             this.empleados = resp.data;
-            this.empleados = this.empleados.filter((ele:any) => ele.activo===true)           
+            this.empleados = this.empleados.filter((ele:EmpleadoF) => ele.activo===true)           
         }, err=>{
             this._router.navigate(['/login']);
         })
 
-        this._AdminService.getBancos().subscribe(resp=>{
-            this.bancos = resp.data;
+        this._AdminService.getProductos().subscribe(resp=>{
+            this.productos = resp.data;
         }, err=>{
             this._router.navigate(['/login']);
         })
@@ -67,8 +67,6 @@ export class AactualizarComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
-        console.log(form.value);
-        
         if (this.objR == 'empleado') {
             this._AdminService.updateEmpleado({
                 nombre: form.value.nombre,
@@ -78,28 +76,22 @@ export class AactualizarComponent implements OnInit {
                 this.error = "";
                 this.success = "Empleado actualizado"
             }, err=> {
-                console.log(err);
-                
                 this.error = err.error.message;
                 this.success = ""
             })
-            this.usuario = null;
+            this.empleado.reset()
         } else {
-            this._AdminService.updateBanco({
-                nombre: form.value.nombre,
-                dominio: form.value.dominio,
-                usuario: form.value.usuario,
-                password: form.value.password,
-                prueba: form.value.prueba,
-                transferir: form.value.transferir,
+            this._AdminService.updateProducto({
+                descripcion: form.value.descripcion,
+                precio: form.value.precio,
             }, form.value.id).subscribe(resp=> {
                 this.error = "";
-                this.success = "Banco actualizado"
+                this.success = "Producto actualizado"
             }, err=> {
                 this.error = err.error.message;
                 this.success = ""
             })
-            this.banco = new BancoB('', '', '', "", "", "", "");
+            this.producto.reset()
         }
 
     }
@@ -119,57 +111,18 @@ export class AactualizarComponent implements OnInit {
                 },err=>{
                     this.error = err.error.message
                 })
-                this.usuario = null;
+                this.empleado.reset();
             } else {
-                this._AdminService.deleteBanco(id).subscribe(resp=>{
-                    alert("Banco Eliminado")
+                this._AdminService.deleteProducto(id).subscribe(resp=>{
+                    alert("Producto Eliminado")
                     this.error = ""
                 },err=>{
                     this.error = err.error.message
                 })
-                this.banco = new BancoB('', '', '', "", "", "", "");
+                this.producto.reset()
             }
         }
     }
-
-    handleConnection($event, bancos?:BancoB){
-        $event.preventDefault()
-        $event.target.innerHTML = "Conectando..."
-        if (!bancos) {
-            this._AdminService.testConnection(this.banco.dominio+this.banco.prueba).subscribe(resp=>{
-                $event.target.innerHTML = "Conectado"
-                $event.target.style.background = "#28a745";
-                setTimeout(() => {
-                  $event.target.innerHTML = "Probar conexión"
-                  $event.target.style.background = "#6c757d"
-                }, 2000);
-              }, err=>{
-                $event.target.innerHTML = "No hay conexión"
-                $event.target.style.background = "#dc3545";
-                setTimeout(() => {
-                  $event.target.innerHTML = "Probar conexión"
-                  $event.target.style.background = "#6c757d"
-                }, 2000);
-              })
-        } else {
-            this._AdminService.testConnection(bancos.dominio+bancos.prueba).subscribe(resp=>{
-                $event.target.innerHTML = "Conectado"
-                $event.target.style.background = "#28a745";
-                setTimeout(() => {
-                  $event.target.innerHTML = "Probar conexión"
-                  $event.target.style.background = "#6c757d"
-                }, 2000);
-              }, err=>{
-                $event.target.innerHTML = "No hay conexión"
-                $event.target.style.background = "#dc3545";
-                setTimeout(() => {
-                  $event.target.innerHTML = "Probar conexión"
-                  $event.target.style.background = "#6c757d"
-                }, 2000);
-              })
-        }
-
-      }
 
     actualizarState(){
         this.updateState = !this.updateState;
@@ -177,9 +130,9 @@ export class AactualizarComponent implements OnInit {
 
     editar(obj: any) {
         if (this.objR == 'empleado') {
-            this.usuario = obj;
+            this.empleado = obj;
         } else {
-            this.banco = obj;
+            this.producto = obj;
         }
         this.actualizarState()
     }

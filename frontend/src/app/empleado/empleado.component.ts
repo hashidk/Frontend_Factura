@@ -1,6 +1,7 @@
 import { Component, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import axios from 'axios';
+import { EmpleadoF } from '../models/empleadoF';
 import { MasterService } from '../service/login.service';
 import { Config, Menu } from '../ui/menu-acordeon/types';
 import { EmpleadoService } from './service/empleado.service';
@@ -14,7 +15,7 @@ import { EmpleadoService } from './service/empleado.service';
 export class EmpleadoComponent {
   objR: string;
   option: number = 0;
-  public data: any;
+  public empleado: EmpleadoF;
   public resumen:any
 
   activarComponente(@Output() opcion: number) {
@@ -32,8 +33,8 @@ export class EmpleadoComponent {
   ) {
     
     this._EmpleadoService.getInfo().subscribe(resp=>{
-      this.data = resp.data;
-      this.resumen = resp.resumen;
+      this.empleado = resp.data;
+      // this.resumen = resp.resumen;
     },err=>{
       this._router.navigate(['/login']);
     })

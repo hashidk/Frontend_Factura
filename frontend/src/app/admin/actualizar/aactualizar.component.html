@@ -15,16 +15,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let empleado of empleados">
-                        <td>{{empleado._id}}</td>
-                        <td>{{empleado.nombre}} </td>
-                        <td>{{empleado.apellido}}</td>
-                        <td>{{empleado.usuario.email}}</td>
+                    <tr *ngFor="let empleado1 of empleados">
+                        <td>{{empleado1._id}}</td>
+                        <td>{{empleado1.nombre}} </td>
+                        <td>{{empleado1.apellido}}</td>
+                        <td>{{empleado1.usuario.email}}</td>
                         <td style="white-space: nowrap">
-                            <a class="btn btn-primary" (click)="editar(empleado)">
+                            <a class="btn btn-primary" (click)="editar(empleado1)">
                                 Editar
                             </a>
-                            <a class="btn btn-danger" (click)="desactivar(empleado._id)">
+                            <a class="btn btn-danger" (click)="desactivar(empleado1._id)">
                                 Desactivar
                             </a>
                         </td>
@@ -60,7 +60,7 @@
                                 <form class="user" #formEmpleado="ngForm" (ngSubmit)="onSubmit(formEmpleado)">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="id" #id="ngModel" [(ngModel)]="usuario._id" required
+                                            <input type="text" name="id" #id="ngModel" [(ngModel)]="empleado._id" required
                                                 class="form-control form-control-user"
                                                 readonly />
 
@@ -70,7 +70,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
                                             <input type="text" name="nombre" #nombre="ngModel"
-                                                [(ngModel)]="usuario.nombre" required pattern="[a-zA-Z]+"
+                                                [(ngModel)]="empleado.nombre" required pattern="[a-zA-Z]+"
                                                 class="form-control form-control-user" placeholder="Nombres" />
                                             <span *ngIf="nombre.touched && !nombre.valid">
                                                 * Nombre es obligatorio
@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <input type="text" name="apellido" #apellido="ngModel"
-                                                [(ngModel)]="usuario.apellido" required pattern="[a-zA-Z]+"
+                                                [(ngModel)]="empleado.apellido" required pattern="[a-zA-Z]+"
                                                 class="form-control form-control-user" placeholder="Apellidos" />
                                             <span *ngIf="apellido.touched && !apellido.valid">
                                                 * Apellido es obligatorio
@@ -88,7 +88,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="email" #email="ngModel" [(ngModel)]="usuario.usuario.email"
+                                        <input type="text" name="email" #email="ngModel" [(ngModel)]="empleado.usuario.email"
                                             required class="form-control form-control-user" placeholder="Correo" />
                                         <span *ngIf="email.touched && !email.valid">
                                             * Correo es obligatorio
@@ -110,38 +110,29 @@
         </div>
 
         <!-- Actualizar banco -->
-        <div *ngIf="objR=='banco'">
-            <h1 class="h4 text-gray-900 mb-4">Bancos</h1>
+        <div *ngIf="objR=='producto'">
+            <h1 class="h4 text-gray-900 mb-4">Productos</h1>
 
             <table *ngIf="!updateState"  datatable [dtOptions]="dtoptions" class="table ">
                 <thead>
                     <tr>
-                        <th style="width: 14%">Id</th>
-                        <th style="width: 14%">Nombre</th>
-                        <th style="width: 14%">Usuario</th>
-                        <th style="width: 14%">Contraseña</th>
-                        <th style="width: 14%">Dominio</th>
-                        <th style="width: 14%">Dir Prueba</th>
-                        <th style="width: 14%">Dir Transferir</th>
+                        <th style="width: 25%">Id</th>
+                        <th style="width: 25%">Descripcion</th>
+                        <th style="width: 25%">Precio</th>
                         <th style="width: 10%"></th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let banco of bancos">
-                        <td>{{banco._id}}</td>
-                        <td>{{banco.nombre}} </td>
-                        <td>{{banco.usuario}} </td>
-                        <td>{{banco.password}} </td>
-                        <td>{{banco.dominio}}</td>
-                        <td>{{banco.prueba}}</td>
-                        <td>{{banco.transferir}}</td>
+                    <tr *ngFor="let producto of productos">
+                        <td>{{producto._id}}</td>
+                        <td>{{producto.descripcion}} </td>
+                        <td>{{producto.precio}} </td>
                         <td style="white-space: nowrap">
-                            <a class="btn btn-primary" (click)="editar(banco)"> Editar </a>
-                            <a class="btn btn-danger" (click)="desactivar(banco._id)">
+                            <a class="btn btn-primary" (click)="editar(producto)"> Editar </a>
+                            <a class="btn btn-danger" (click)="desactivar(producto._id)">
                                 Eliminar
                             </a>
-                            <button (click)="handleConnection($event, banco)" type="button" class="btn btn-secondary" style="border-radius: 10px;">Probar Conexión</button>
                         </td>
                     </tr>
                 </tbody>
@@ -174,72 +165,20 @@
                                 <form class="user" #formBanco="ngForm" (ngSubmit)="onSubmit(formBanco)">
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="id" #id="ngModel" [(ngModel)]="banco._id" required
-                                                class="form-control form-control-user" readonly />
-                                            <br>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="nombre" #nombre="ngModel"
-                                                [(ngModel)]="banco.nombre" required
-                                                class="form-control form-control-user" placeholder="Nombre" />
-                                            <span *ngIf="nombre.touched && !nombre.valid">
-                                                * Nombre es obligatorio
+                                            <textarea name="descripcion" #descripcion="ngModel"
+                                                [(ngModel)]="producto.descripcion" required
+                                                class="form-control form-control-user" placeholder="Descripcion"></textarea>
+                                            <span *ngIf="descripcion.touched && !descripcion.valid">
+                                                * La descripcion es obligatoria
                                             </span>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="dominio" #dominio="ngModel"
-                                                [(ngModel)]="banco.dominio" required
-                                                class="form-control form-control-user" placeholder="Dominio" />
-                                            <span *ngIf="dominio.touched && !dominio.valid">
-                                                * Dominio es obligatorio
+                                            <input type="number" name="precio" #precio="ngModel"
+                                                [(ngModel)]="producto.precio" required step="0.01"
+                                                class="form-control form-control-user" placeholder="Precio" />
+                                            <span *ngIf="precio.touched && !precio.valid">
+                                                * El precio es obligatorio
                                             </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="usuario" #usuario="ngModel"
-                                                [(ngModel)]="banco.usuario" required
-                                                class="form-control form-control-user" placeholder="Usuario" />
-                                            <span *ngIf="usuario.touched && !usuario.valid">
-                                                * Usuario es obligatorio
-                                            </span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="password" #password="ngModel"
-                                                [(ngModel)]="banco.password" required
-                                                class="form-control form-control-user" placeholder="Contraseña" />
-                                            <span *ngIf="password.touched && !password.valid">
-                                                * Contraseña es obligatorio
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0 ">
-                                            <input type="text" name="prueba" #prueba="ngModel"
-                                                [(ngModel)]="banco.prueba" required
-                                                class="form-control form-control-user" placeholder="Dirección de prueba" />
-                                            <span *ngIf="prueba.touched && !prueba.valid">
-                                                * Dirección de prueba es obligatorio
-                                            </span>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="transferir" #transferir="ngModel"
-                                                [(ngModel)]="banco.transferir" required
-                                                class="form-control form-control-user" placeholder="Dirección de transferencia" />
-                                            <span *ngIf="transferir.touched && !transferir.valid">
-                                                * Dirección de transferencia es obligatorio
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div *ngIf="prueba.valid && dominio.valid" class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0 ">
-                                            <button (click)="handleConnection($event)" type="button" class="btn btn-secondary" style="padding: 10px 20px; margin-left: 30px; border-radius: 10px;">Probar Conexión</button>
                                         </div>
                                     </div>
                                     <br>

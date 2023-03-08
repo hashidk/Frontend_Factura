@@ -1,0 +1,146 @@
+<body class="bg-gradient-primary">
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="contenedorForm">
+                        <div>
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Registre su Empresa</h1>
+                            </div>
+
+                            <div *ngIf="error!==''"
+                                style="background-color: rgb(241, 105, 105); display: flex; align-items: center;">
+                                <p
+                                    style="margin: 5px 10px; padding: 5px 10px; color: white; border-left: 2.5px solid white;">
+                                    Error: {{error}}</p>
+                            </div>
+                            <div *ngIf="success!==''"
+                                style="background-color: rgb(110, 241, 105); display: flex; align-items: center;">
+                                <p
+                                    style="margin: 5px 10px; padding: 5px 10px; color: white; border-left: 2.5px solid white;">
+                                    Muy bien: {{success}}</p>
+                            </div>
+                            <div>
+                                <form class="user" #formCli="ngForm" (submit)="onSubmit($event)" class="form">
+                                    <div class="pasos"  style="width: 100%;">
+                                        <div style="width: 100%;">
+                                            <button class="boton" *ngFor="let paso of pasos" (click)="changePaso($event, paso.paso)" [value]="paso.paso" style="width: calc(25%); background-color: transparent; border: none;">
+                                                <div>
+                                                    <div class="numero" [id]="paso.paso===pasoActual.valueOf()  ? 'activeButton' : ''">
+                                                        <h4>{{paso.paso}}</h4>
+                                                    </div>
+                                                    <p style=" background-color: transparent; font-size: 0.7rem;">{{paso.descripcion}}</p>
+                                                </div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <ng-container class="form-group" *ngIf="pasoActual===1">
+                                        <label for=""></label>
+                                        <select class="inputForm input100" type="text" name="tipo" #tipo="ngModel"
+                                            [(ngModel)]="tipoEmp.tipo" [value]="''" required pattern="(emprendedor|pymes|empresa)">
+                                            <option value="" disabled selected>Elige una opción &dtrif; </option>
+                                            <option value="emprendedor">Emprendedor</option>
+                                            <option value="pymes">PYMES</option>
+                                            <option value="empresa">Empresa</option>
+                                        </select>
+                                    </ng-container>
+                                    <ng-container *ngIf="pasoActual===2">
+                                        <input type="text" name="id" #id="ngModel" [(ngModel)]="register.identificacion" required
+                                            pattern="[0-9]{10,10}" class="inputForm input100"
+                                            placeholder="Identificación" />
+                                        <p *ngIf="id.touched && !id.valid">
+                                            * La identificación es obligatoria, de 10 dígitos
+                                        </p>
+
+                                        <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="register.nombre"
+                                            required pattern="[a-zA-Z]+" class="inputForm input100"
+                                            placeholder="Nombre" />
+                                        <p *ngIf="nombre.touched && !nombre.valid">
+                                            * Su nombre es obligatorio
+                                        </p>
+                                        <input type="text" name="apellido" #apellido="ngModel"
+                                            [(ngModel)]="register.apellido" required pattern="[a-zA-Z]+"
+                                            class="inputForm input100" placeholder="Apellidos" />
+                                        <p *ngIf="apellido.touched && !apellido.valid">
+                                            * Su apellido es obligatorio
+                                        </p>
+                                    </ng-container>
+
+                                    <ng-container *ngIf="pasoActual===3">
+                                        <input type="text" name="empresa_nombre" #empresa_nombre="ngModel" [(ngModel)]="register.empresa_nombre"
+                                            required pattern="[a-zA-Z]+" class="inputForm input100"
+                                            placeholder="Nombre de su empresa" />
+                                        <p *ngIf="empresa_nombre.touched && !empresa_nombre.valid">
+                                            * El nombre de su empresa es obligatorio
+                                        </p>
+                                        <input type="text" name="empresa_dir" #empresa_dir="ngModel"
+                                            [(ngModel)]="register.empresa_dir" required pattern="[a-zA-Z]+"
+                                            class="inputForm input100" placeholder="La dirección física" />
+                                        <p *ngIf="empresa_dir.touched && !empresa_dir.valid">
+                                            * La dirección física de su Empresa es obligatorio
+                                        </p>
+                                        <input type="text" name="empresa_cuidad" #empresa_cuidad="ngModel" [(ngModel)]="register.empresa_cuidad"
+                                            required pattern="[a-zA-Z]+" class="inputForm input50"
+                                            placeholder="Ciudada" />
+                                        <p *ngIf="empresa_cuidad.touched && !empresa_cuidad.valid">
+                                            * La cuidad en la que se encuentra su empresa es obligatorio
+                                        </p>
+                                        <input type="text" name="empresa_privincia" #empresa_privincia="ngModel"
+                                            [(ngModel)]="register.empresa_privincia" required pattern="[a-zA-Z]+"
+                                            class="inputForm input50" placeholder="Provincia" />
+                                        <p *ngIf="empresa_privincia.touched && !empresa_privincia.valid">
+                                            * La Provincia en la que se encuentra su empresa es obligatorio
+                                        </p>
+                                        <input type="text" name="empresa_pais" #empresa_pais="ngModel" [(ngModel)]="register.empresa_pais"
+                                            required pattern="[a-zA-Z]+" class="inputForm input100"
+                                            placeholder="País" />
+                                        <p *ngIf="empresa_pais.touched && !empresa_pais.valid">
+                                            * El País en el que se encuentra su empresa es obligatorio
+                                        </p>
+    
+                                        <input type="file" name="image" #image="ngModel"
+                                            [(ngModel)]="register.image" required 
+                                            class="inputForm input50" accept="image/*"/>
+                                        <span *ngIf="image.touched && !image.valid">
+                                            * La imagen es obligatoria
+                                        </span>
+
+                                    </ng-container>
+
+                                    <div *ngIf="pasoActual===4">
+                                        <h5 *ngIf="formCli.form.valid" class="mensaje"> 
+                                            &infin; Muy bien, parece que todo se encuentra en orden, para terminar el proceso presione 
+                                            en el botón de Registrarse, 
+                                            en caso de que dude de que alguno de sus datos no sean 
+                                            correctos, aún puede regresar para revisarlos o 
+                                            cambiarlos </h5>
+                                        <h5 *ngIf="!formCli.form.valid" class="mensaje"> Recuerde revisar los campos </h5>
+                                    </div>
+                                    
+                                    
+                                    <div style="display: flex; justify-content: space-between;">
+                                        <button class="submit input50" (click)="retro($event)" *ngIf="pasoActual>1">Anterior paso</button>
+                                        <button class="submit input50" (click)="next($event)" *ngIf="pasoActual<4">Siguiente paso</button>
+                                        <div *ngIf="pasoActual===4">              
+                                            <input type="submit" name="Guardar" value="Registrarse" [disabled]="!formCli.form.valid"
+                                            class="submit input50 submit-second">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="imagen">
+                            <img class="imgForm" src="../../assets/imgs/factura-electronica.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

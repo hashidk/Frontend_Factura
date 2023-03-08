@@ -40,22 +40,22 @@ export class AdminService {
         return this._http.delete(`${this.url}empleados/${id}`,{headers:this._headers, withCredentials: true});
     }
 
-    getBancos():Observable<any>{
-        return this._http.get(this.url+'bancos', {headers:this._headers, withCredentials: true});
+    getProductos():Observable<any>{
+        return this._http.get(this.url+'productos', {headers:this._headers, withCredentials: true});
     }
 
-    addBanco(banco:any):Observable<any>{
-        let params=JSON.stringify(banco);
-        return this._http.post(this.url+'bancos',params,{headers:this._headers, withCredentials: true});
+    addProducto(producto:any):Observable<any>{
+        let params=JSON.stringify(producto);
+        return this._http.post(this.url+'productos',params,{headers:this._headers, withCredentials: true});
     }
 
-    updateBanco(banco:any, id:string):Observable<any>{
-        let params=JSON.stringify(banco);
-        return this._http.put(`${this.url}bancos/${id}`,params,{headers:this._headers, withCredentials: true});
+    updateProducto(producto:any, id:string):Observable<any>{
+        let params=JSON.stringify(producto);
+        return this._http.put(`${this.url}productos/${id}`,params,{headers:this._headers, withCredentials: true});
     }
 
-    deleteBanco(id:string):Observable<any>{
-        return this._http.delete(`${this.url}bancos/${id}`,{headers:this._headers, withCredentials: true});
+    deleteProducto(id:string):Observable<any>{
+        return this._http.delete(`${this.url}productos/${id}`,{headers:this._headers, withCredentials: true});
     }
 
 }

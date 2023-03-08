@@ -3,11 +3,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
-import { BancoB } from 'src/app/models/banco';
 import axios from 'axios';
 
 import { Router } from '@angular/router';
 import { AdminService } from '../service/admin.service';
+import { EmpleadoF } from 'src/app/models/empleadoF';
+import { ProductoF } from 'src/app/models/productoF';
 
 
 @Component({
@@ -20,8 +21,8 @@ import { AdminService } from '../service/admin.service';
 export class AcrearComponent {
   title = "Crear";
   @Input() objR: string;
-  public usuario: Usuario;  //empleado
-  public banco: BancoB;
+  public empleado: EmpleadoF;  //empleado
+  public producto: ProductoF;
 
 
   public error: string = "";
@@ -31,9 +32,8 @@ export class AcrearComponent {
     private _router: Router,
     private _AdminService:AdminService
   ) {
-    this.usuario = new Usuario("",'', '', '', '', '');
-    this.banco = new BancoB('', '', '', "", "", "", "");
-    
+    this.empleado = new EmpleadoF("", "", "", "", {email: "", nickname: ""}, "", true)
+    this.producto = new ProductoF("", 0, "", "")
   }
   
   ngOnInit(): void {
@@ -49,48 +49,23 @@ export class AcrearComponent {
       }).subscribe(resp=>{
         this.error = "";
         this.success = "Empleado creado"
-        this.usuario = new Usuario('', '', '', '', '', "");
+        this.empleado.reset()
       }, err=>{
         this.error = err.error.message;
         this.success = ""
       })
     } else {
-      this._AdminService.addBanco({
-        id: form.value.id,
-        nombre: form.value.nombre,
-        dominio: form.value.dominio,
-        usuario: form.value.usuario,
-        password: form.value.password,
-        prueba: form.value.prueba,
-        transferir: form.value.transferir,
+      this._AdminService.addProducto({
+        precio: form.value.precio,
+        descripcion: form.value.descripcion,
       }).subscribe(resp=>{
         this.error = "";
-        this.success = "Banco creado"
-        this.banco = new BancoB('', '', '', "", "", "", "");
+        this.success = "Producto creado"
+        this.producto.reset()
       }, err=>{
         this.error = err.error.message;
         this.success = ""
       })
     }
-  }
-
-  handleConnection($event){
-    $event.preventDefault()
-    $event.target.innerHTML = "Conectando..."
-    this._AdminService.testConnection(this.banco.dominio+this.banco.prueba).subscribe(resp=>{
-      $event.target.innerHTML = "Conectado"
-      $event.target.style.background = "#28a745";
-      setTimeout(() => {
-        $event.target.innerHTML = "Probar conexión"
-        $event.target.style.background = "#6c757d"
-      }, 2000);
-    }, err=>{
-      $event.target.innerHTML = "No hay conexión"
-      $event.target.style.background = "#dc3545";
-      setTimeout(() => {
-        $event.target.innerHTML = "Probar conexión"
-        $event.target.style.background = "#6c757d"
-      }, 2000);
-    })
   }
 }

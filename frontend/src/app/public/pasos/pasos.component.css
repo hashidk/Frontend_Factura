@@ -1,0 +1,27 @@
+.pasos h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.pasos > div h5 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.red {
+    background-color: #f85050;
+}
+
+.green {
+    background-color: #6cd889;
+}
+
+.blue {
+    background-color: #4c40f2;
+}
+
+
+/* .pasos > div h4:nth-child(1){
+    bak
+} */

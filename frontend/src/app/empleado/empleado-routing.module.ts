@@ -3,14 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { EactualizarComponent } from './actualizar/eactualizar.component';
 import { EdesactivarComponent } from './desactivar/edesactivar.component';
 
-import { EcrearClienteComponent } from './ecrear-cliente/ecrear-cliente.component';
-import { EcrearCuentaComponent } from './ecrear-cuenta/ecrear-cuenta.component';
+import { EcrearComponent } from './crear/ecrear.component'
 import { EleerComponent } from './leer/eleer.component';
 
 const routes: Routes = [
 
-    { path: 'ecrear-cliente', component: EcrearClienteComponent },
-    { path: 'ecrear-cuenta', component: EcrearCuentaComponent },
+    { path: 'ecrear', component: EcrearComponent },
     { path: 'eleer', component: EleerComponent },
     { path: 'eactualizar', component: EactualizarComponent },
     { path: 'edesactivar', component: EdesactivarComponent }

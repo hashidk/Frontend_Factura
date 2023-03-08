@@ -36,22 +36,22 @@ export class EmpleadoService {
         return this._http.delete(`${this.url}clientes/${id}`,{headers:this._headers, withCredentials: true});
     }
 
-    getCuentas():Observable<any>{
-        return this._http.get(this.url+'cuentas', {headers:this._headers, withCredentials: true});
+    getFacturas():Observable<any>{
+        return this._http.get(this.url+'facturas', {headers:this._headers, withCredentials: true});
     }
 
-    addCuenta(cuenta:any):Observable<any>{
+    addFactura(cuenta:any):Observable<any>{
         let params=JSON.stringify(cuenta);
-        return this._http.post(this.url+'cuentas',params,{headers:this._headers, withCredentials: true});
+        return this._http.post(this.url+'facturas',params,{headers:this._headers, withCredentials: true});
     }
 
-    updateCuenta(cuenta:any, id:string):Observable<any>{
+    updateFactura(cuenta:any, id:string):Observable<any>{
         let params=JSON.stringify(cuenta);
-        return this._http.put(`${this.url}cuentas/${id}`,params,{headers:this._headers, withCredentials: true});
+        return this._http.put(`${this.url}facturas/${id}`,params,{headers:this._headers, withCredentials: true});
     }
 
-    deleteCuenta(id:string):Observable<any>{
-        return this._http.delete(`${this.url}cuentas/${id}`,{headers:this._headers, withCredentials: true});
+    getProductos():Observable<any>{
+        return this._http.get(this.url+'productos', {headers:this._headers, withCredentials: true});
     }
 
 }

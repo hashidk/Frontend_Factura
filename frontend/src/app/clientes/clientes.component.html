@@ -64,6 +64,7 @@
                 <h4 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin-left: 25px;"> <i>
                         Bienvenid@</i>
                 </h4>
+                <button (click)="click()">dsdf</button>
 
                 <ul class="navbar-nav ml-auto">
                     <div class="topbar-divider d-none "></div>
@@ -105,18 +106,32 @@
                         <div class="card o-hidden border-0 shadow-lg my-5">
                             <div class="card-body p-0">
                                 <div class="p-5">
-                                    <div>
-                                        <div>
-                                            <h3 style="text-align: center;">Todas sus cuentas: </h3>
-                                            <div class="tarjetas">
-                                                <div *ngFor="let cuenta of cuentas">
-                                                    <button class="tarjetaBoton" (click)="getCuenta($event, cuenta)">
-                                                        <app-tarjeta [data]="cuenta" [showClientes]=false></app-tarjeta>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <h1 class="h4 text-gray-900 mb-4">Facturas</h1>
+
+                                    <table datatable [dtOptions]="dtoptions">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 20%">ID</th>
+                                                <th style="width: 20%">Número de factura</th>
+                                                <th style="width: 20%">Subtotal</th>
+                                                <th style="width: 20%">Fecha</th>
+                                                <th style="width: 20%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let factura of facturas">
+                                                <td>{{factura._id}}</td>
+                                                <td>{{factura.invoicer_nr}}</td>
+                                                <td>{{factura.subtotal.toFixed(2)}}$</td>
+                                                <td>{{factura.fecha}}</td>
+                                                <td>
+                                                    <a target="_blank" [href]="direc+factura._id" style="background: transparent; border: none;">
+                                                        <img src="../../../assets/imgs/pdf.png" width="30px" height="30px" alt="pdf">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
                                 </div>
                             </div>
@@ -125,18 +140,6 @@
                     </div>
                 </div>
                 
-                
-                <div *ngIf="option == 1">
-                    <app-cleer [objR]="objR" [cuenta]="cuenta1"  [recuperarCuenta]=recuperarCuenta [a]="ab" (setCuenta)="setCuentaExt($event)"  (activarComponente)="activarComponente($event)"></app-cleer>
-                </div>
-                <div *ngIf="option == 2">
-                    <app-transferencia-interna [objR]="objR" [cuenta]="cuenta1" (activarComponente)="activarComponente($event)"></app-transferencia-interna>
-                </div>
-                <div *ngIf="option == 3">
-                    <app-transferencia-externa [objR]="objR" [cuenta]="cuenta1" (activarComponente)="activarComponente($event)" ></app-transferencia-externa>
-                </div>
-
-
             </div>
 
         </div>

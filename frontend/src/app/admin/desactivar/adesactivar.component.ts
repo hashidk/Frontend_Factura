@@ -3,12 +3,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuario';
-import { BancoB } from 'src/app/models/banco';
 import axios from 'axios';
 
 import { Router } from '@angular/router';
 import { CuentaB } from 'src/app/models/cuenta';
 import { AdminService } from '../service/admin.service';
+import { EmpleadoF } from 'src/app/models/empleadoF';
 
 
 @Component({
@@ -20,7 +20,7 @@ import { AdminService } from '../service/admin.service';
 export class AdesactivarComponent implements OnInit {
     title = "Desactivar";
     @Input() objR: string;
-    empleados: any;
+    empleados: EmpleadoF[];
 
     dtoptions: DataTables.Settings = {};  //para tabla
 
@@ -35,7 +35,7 @@ export class AdesactivarComponent implements OnInit {
     ) {
         this._AdminService.getEmpleados().subscribe(resp=>{
             this.empleados = resp.data;
-            this.empleados = this.empleados.filter((ele:any) => ele.activo===false)           
+            this.empleados = this.empleados.filter((ele:EmpleadoF) => ele.activo===false)           
         }, err=>{
             this._router.navigate(['/login']);
         })

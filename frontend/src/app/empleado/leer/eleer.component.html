@@ -10,10 +10,8 @@
                         <th style="width: 20%">Identificación</th>
                         <th style="width: 20%">Nombre y Apellido</th>
                         <th style="width: 20%">Provincia</th>
-                        <th style="width: 20%">Código postal</th>
+                        <th style="width: 20%">Dirección</th>
                         <th style="width: 20%">Correo</th>
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -21,32 +19,37 @@
                         <td> {{cliente._id}}</td>
                         <td>{{cliente.nombre}} {{cliente.apellido}}</td>
                         <td>{{cliente.provincia}}, {{cliente.ciudad}}</td>
-                        <td>{{cliente.codigo_postal}}</td>
+                        <td>{{cliente.dir}}</td>
                         <td>{{cliente.usuario.email}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <!-- Leer Cuenta -->
-        <div *ngIf="objR=='cuenta'">
-            <h1 class="h4 text-gray-900 mb-4">Cuentas</h1>
+        <div *ngIf="objR=='factura'">
+            <h1 class="h4 text-gray-900 mb-4">Facturas</h1>
 
             <table datatable [dtOptions]="dtoptions">
                 <thead>
                     <tr>
-                        <th style="width: 20%">Identificación</th>
-                        <th style="width: 10%">Saldo</th>
-                        <th style="width: 10%">Tipo</th>
-                        <th style="width: 60%">Clientes asociados a esta cuenta</th>
-
+                        <th style="width: 20%">ID</th>
+                        <th style="width: 20%">Número de factura</th>
+                        <th style="width: 20%">Subtotal</th>
+                        <th style="width: 20%">Fecha</th>
+                        <th style="width: 20%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cuenta of cuentas">
-                        <td>{{cuenta._id}}</td>
-                        <td>{{cuenta.monto}}$</td>
-                        <td>{{cuenta.tipo === "C" ? "Corriente" : "Ahorro"}}</td>
-                        <td>{{cuenta.clientes.join(", ")}}</td>
+                    <tr *ngFor="let factura of facturas">
+                        <td>{{factura._id}}</td>
+                        <td>{{factura.invoicer_nr}}</td>
+                        <td>{{factura.subtotal.toFixed(2)}}$</td>
+                        <td>{{factura.fecha}}</td>
+                        <td>
+                            <a target="_blank" [href]="direc+factura._id" style="background: transparent; border: none;">
+                                <img src="../../../assets/imgs/pdf.png" width="30px" height="30px" alt="pdf">
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

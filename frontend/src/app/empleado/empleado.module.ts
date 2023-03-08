@@ -5,8 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmpleadoRoutingModule } from './empleado-routing.module';
 
 import { EmpleadoComponent } from './empleado.component';
-import { EcrearClienteComponent } from './ecrear-cliente/ecrear-cliente.component';
-import { EcrearCuentaComponent } from './ecrear-cuenta/ecrear-cuenta.component';
+import { EcrearComponent } from './crear/ecrear.component'
 import { EleerComponent } from './leer/eleer.component';
 import { EactualizarComponent } from './actualizar/eactualizar.component';
 import { EdesactivarComponent } from './desactivar/edesactivar.component';
@@ -16,9 +15,8 @@ import { DataTablesModule } from 'angular-datatables';
 @NgModule({
     declarations: [
         EmpleadoComponent,
-        EcrearClienteComponent,
-        EcrearCuentaComponent,
-        EleerComponent, EactualizarComponent, EdesactivarComponent
+        EleerComponent, EactualizarComponent, EdesactivarComponent,
+        EcrearComponent
     ],
 
     imports: [

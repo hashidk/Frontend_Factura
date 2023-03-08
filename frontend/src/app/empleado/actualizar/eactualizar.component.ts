@@ -2,14 +2,11 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import axios from 'axios';
-
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { MasterService } from 'src/app/service/login.service';
-import { ClienteB } from 'src/app/models/cliente';
-import { CuentaB } from 'src/app/models/cuenta';
 import { EmpleadoService } from '../service/empleado.service';
+import { ClienteF, FacturaF, ProductoF } from 'src/app/models';
+type Pedido ={producto:ProductoF, cantidad:number};
 
 
 @Component({
@@ -22,13 +19,23 @@ export class EactualizarComponent implements OnInit {
     title = "Actualizar";
     @Input() objR: string;
 
-    public clientes: any;
-    public cuentas: any;
+    public pedido: Pedido = {
+        producto:new ProductoF("", 0, "", ""),
+        cantidad:1
+      };
+
+    public clientes: ClienteF[];
+    public facturas: FacturaF[];
+    public productos: ProductoF[];
+    public productosFilter: ProductoF[]
+    public productosSelected: Pedido[] = []
+  
+    public subtotal:number = 0;
+
     public updateState:boolean = false
 
-    public cli: any;
-    public cta: any;
-
+    public cliente: ClienteF;
+    public factura: FacturaF;
 
     opcion: number = 3;
     public error: string = "";
@@ -41,6 +48,8 @@ export class EactualizarComponent implements OnInit {
         private service: MasterService,
         private _EmpleadoService:EmpleadoService
     ) {
+        this.cliente = new ClienteF("", "", "", "", "", "", "", {email:"", nickname: ""}, false, "")
+        this.factura = new FacturaF("", "", "", "", "", 0, [], "", "")
         this._EmpleadoService.getClientes().subscribe(resp=>{
             this.clientes = resp.data;
             this.clientes = this.clientes.filter((ele:any) => ele.activo===true)           
@@ -48,10 +57,23 @@ export class EactualizarComponent implements OnInit {
             this._router.navigate(['/login']);
         })
 
-        this._EmpleadoService.getCuentas().subscribe(resp=>{
-            this.cuentas = resp.data;
-            this.cuentas = this.cuentas.filter((ele:any) => ele.activo===true)
+        this._EmpleadoService.getFacturas().subscribe(resp=>{
+            this.facturas = resp.data;
         }, err=>{
+            this._router.navigate(['/login']);
+        })
+
+        this._EmpleadoService.getInfo().subscribe(resp=>{
+            this.productos = resp.data;
+            this.productosFilter = resp.data;
+          },err=>{
+            this._router.navigate(['/login']);
+          })
+        
+        this._EmpleadoService.getProductos().subscribe(resp=>{
+            this.productos = resp.data;
+            this.productosFilter = resp.data;
+        },err=>{
             this._router.navigate(['/login']);
         })
     }
@@ -79,21 +101,23 @@ export class EactualizarComponent implements OnInit {
                 this.error = err.response.data;
                 this.success = ""
             })
-            this.cli = null;
+            this.cliente.reset();
 
         } else {
-            this._EmpleadoService.updateCuenta({
-                monto: form.value.monto
-            }, form.value.id).subscribe(resp=>{
-                this.error = "";
-                this.success = "Cuenta actualizada"
-                this.actualizarState()
-            },err=>{
-                this.error = err.response.data;
-                this.success = ""
-            })
+            if (this.productosSelected.length>0) {
+                this._EmpleadoService.updateFactura({
+                    productos: this.productosSelected.map(ele => [ele.producto._id, ele.cantidad]),
+                }, form.value.id).subscribe(resp=>{
+                    this.error = "";
+                    this.success = "Cuenta actualizada"
+                    this.actualizarState()
+                },err=>{
+                    this.error = err.response.data;
+                    this.success = ""
+                })
+            }
 
-            this.cta = null;
+            this.factura.reset();
         }
         
     }
@@ -104,10 +128,17 @@ export class EactualizarComponent implements OnInit {
 
     editar(obj: any) {
         if (this.objR == 'cliente') {
-            this.cli = obj;
+            this.cliente = obj;
         } else {
-            this.cta = obj;
-            this.cta.tipo = this.cta.tipo==='C' ? 'Corriente' : 'Ahorro'
+            this.factura = obj;
+            this.productosSelected = this.factura.productos.map(ele => {
+                return {
+                    producto: this.productos.find(ele2=> ele2._id === ele[0]),
+                    cantidad: ele[1]
+                }
+            })
+            this.subtotal = this.productosSelected.map(ele => ele.cantidad*ele.producto.precio).reduce((a, b) => a + b, 0)
+            this.productosFilter = this.productos.filter(ele => !this.productosSelected.map(p => p.producto._id).includes(ele._id))
         }
         this.actualizarState()
     }
@@ -121,17 +152,26 @@ export class EactualizarComponent implements OnInit {
                 },err=>{
                     this.error = err.error.message
                 })
-                this.cli = null;
-            } else {
-                this._EmpleadoService.deleteCuenta(id).subscribe(resp=>{
-                    alert("Cuenta desactivada")
-                    this.error = ""
-                },err=>{
-                    this.error = err.error.message
-                })
-                this.cta = null;
+                this.cliente.reset();
             }
         }
     }
 
+    handleAdd(){
+        if (this.pedido.producto._id !== "none") {
+          this.productos.filter(ele => ele._id === this.pedido.producto._id)[0]
+          this.productosSelected.push({
+            producto: this.productos.filter(ele => ele._id === this.pedido.producto._id)[0],
+            cantidad: this.pedido.cantidad,
+          })
+          this.subtotal = this.productosSelected.map(ele => ele.cantidad*ele.producto.precio).reduce((a, b) => a + b, 0)
+          this.productosFilter = this.productos.filter(ele => !this.productosSelected.map(p => p.producto._id).includes(ele._id))
+        }
+      }
+    
+      handleclick(id:string){
+        this.productosSelected = this.productosSelected.filter(ele => ele.producto._id !== id)
+        this.subtotal = this.productosSelected.map(ele => ele.cantidad*ele.producto.precio).reduce((a, b) => a + b, 0)
+        this.productosFilter = this.productos.filter(ele => !this.productosSelected.map(p => p.producto._id).includes(ele._id))
+      }
 }

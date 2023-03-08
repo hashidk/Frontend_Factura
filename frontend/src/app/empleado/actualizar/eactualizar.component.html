@@ -11,7 +11,7 @@
                         <th style="width: 18%">Identificación</th>
                         <th style="width: 18%">Nombre y Apellido</th>
                         <th style="width: 18%">Provincia</th>
-                        <th style="width: 18%">Código postal</th>
+                        <th style="width: 18%">Dirección</th>
                         <th style="width: 18%">Correo</th>
                         <th style="width: 10%"></th>
                     </tr>
@@ -21,7 +21,7 @@
                         <td>{{cliente._id}}</td>
                         <td>{{cliente.nombre}} {{cliente.apellido}}</td>
                         <td>{{cliente.provincia}}, {{cliente.ciudad}}</td>
-                        <td>{{cliente.codigo_postal}}</td>
+                        <td>{{cliente.dir}}</td>
                         <td>{{cliente.usuario.email}}</td>
 
                         <td style="white-space: nowrap">
@@ -45,7 +45,7 @@
                         <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
                         <div class="col-lg-7">
                             <div class="p-5">
-                                <button (click)="actualizarState()">← Regresar</button>
+                                <button type="button" class="btn btn-secondary" (click)="actualizarState()">← Regresar</button>
 
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">{{title}} {{objR}}</h1>
@@ -68,7 +68,7 @@
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
 
-                                            <input type="text" name="id" #id="ngModel" [(ngModel)]="cli._id" required
+                                            <input type="text" name="id" #id="ngModel" [(ngModel)]="cliente._id" required
                                                 class="form-control form-control-user"
                                                 placeholder="Identificación" readonly />
                                             <br>
@@ -77,7 +77,7 @@
 
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="cli.nombre"
+                                            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="cliente.nombre"
                                                 required pattern="[a-zA-Z]+" class="form-control form-control-user"
                                                 placeholder="Nombres" />
                                             <span *ngIf="nombre.touched && !nombre.valid">
@@ -87,7 +87,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <input type="text" name="apellido" #apellido="ngModel"
-                                                [(ngModel)]="cli.apellido" required pattern="[a-zA-Z]+"
+                                                [(ngModel)]="cliente.apellido" required pattern="[a-zA-Z]+"
                                                 class="form-control form-control-user" placeholder="Apellidos" />
                                             <span *ngIf="apellido.touched && !apellido.valid">
                                                 * Apellido es obligatorio
@@ -99,7 +99,7 @@
 
                                     <div class="form-group">
                                         <input type="text" name="provincia" #provincia="ngModel"
-                                            [(ngModel)]="cli.provincia" required pattern="[a-zA-Z]+"
+                                            [(ngModel)]="cliente.provincia" required pattern="[a-zA-Z]+"
                                             class="form-control form-control-user" placeholder="Provincia" />
                                         <span *ngIf="provincia.touched && !provincia.valid">
                                             * Provincia es obligatorio
@@ -110,7 +110,7 @@
                                     <br>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="ciudad" #ciudad="ngModel" [(ngModel)]="cli.ciudad"
+                                            <input type="text" name="ciudad" #ciudad="ngModel" [(ngModel)]="cliente.ciudad"
                                                 required pattern="[a-zA-Z]+" class="form-control form-control-user"
                                                 placeholder="Ciudad" />
                                             <span *ngIf="ciudad.touched && !ciudad.valid">
@@ -119,11 +119,11 @@
                                             <br>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="codigo" #codigo="ngModel" [(ngModel)]="cli.codigo_postal"
-                                                required pattern="[0-9]{6,6}" class="form-control form-control-user"
-                                                placeholder="Código Postal" />
-                                            <span *ngIf="codigo.touched && !codigo.valid">
-                                                * Codigo postal es obligatorio, de 6 dígitos
+                                            <input type="text" name="dir" #dir="ngModel" [(ngModel)]="cliente.dir"
+                                                required pattern="[a-zA-Z]+" class="form-control form-control-user"
+                                                placeholder="Dirección" />
+                                            <span *ngIf="dir.touched && !dir.valid">
+                                                * La dirección es obligatoria
                                             </span>
                                             <br>
 
@@ -132,7 +132,7 @@
 
 
                                     <div class="form-group">
-                                        <input type="text" name="email" #email="ngModel" [(ngModel)]="cli.usuario.email"
+                                        <input type="text" name="email" #email="ngModel" [(ngModel)]="cliente.usuario.email"
                                             required class="form-control form-control-user" placeholder="Email" />
                                         <span *ngIf="email.touched && !email.valid">
                                             * Correo es obligatorio
@@ -155,30 +155,30 @@
 
 
         <!-- Actualizar Cuenta -->
-        <div *ngIf="objR=='cuenta'">
+        <div *ngIf="objR=='factura'">
             <h1 class="h4 text-gray-900 mb-4">Cuentas</h1>
 
             <table *ngIf="!updateState" datatable [dtOptions]="dtoptions" class="table table-hover">
                 <thead>
                     <tr>
-                        <th style="width: 10%">Identificación</th>
-                        <th style="width: 10%">Saldo</th>
-                        <th style="width: 10%">Tipo</th>
-                        <th style="width: 60%">Clientes asociados a esta cuenta</th>
+                        <th style="width: 20%">ID</th>
+                        <th style="width: 10%">Número de factura</th>
+                        <th style="width: 10%">Subtotal</th>
+                        <th style="width: 60%">Fecha</th>
                         <th style="width: 10%"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let cuenta of cuentas">
-                        <td>{{cuenta._id}}</td>
-                        <td>{{cuenta.monto}}$</td>
-                        <td>{{cuenta.tipo === "C" ? "Corriente" : "Ahorro"}}</td>
-                        <td>{{cuenta.clientes.join(", ")}}</td>
+                    <tr *ngFor="let factura of facturas">
+                        <td>{{factura._id}}</td>
+                        <td>{{factura.invoicer_nr}}</td>
+                        <td>{{factura.subtotal.toFixed(2)}}$</td>
+                        <td>{{factura.fecha}}</td>
                         <td style="white-space: nowrap">
-                            <a class="btn btn-secondary" (click)="editar(cuenta)">
+                            <a class="btn btn-secondary" (click)="editar(factura)">
                                 Editar
                             </a>
-                            <a class="btn btn-danger" (click)="desactivar(cuenta._id)">
+                            <a class="btn btn-danger" (click)="desactivar(factura._id)">
                                 Desactivar
                             </a>
                         </td>
@@ -210,46 +210,101 @@
                                         Muy bien: {{success}}</p>
                                 </div>
 
-                                <form class="user" #formCta="ngForm" (ngSubmit)="onSubmit(formCta)">
-                                    <div class="form-group">
+                                <form class="user" #formFac="ngForm" (ngSubmit)="onSubmit(formFac)">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
 
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-    
-                                                <input type="text" name="id" #id="ngModel" [(ngModel)]="cta._id" required
-                                                    class="form-control form-control-user"
-                                                    placeholder="Id de la cuenta" readonly />
-                                                <br>
-                                            </div>
+                                            <input type="text" name="id" #id="ngModel" [(ngModel)]="factura.cliente" required
+                                                class="form-control form-control-user"
+                                                placeholder="Identificación" readonly />
+                                            <br>
                                         </div>
-
-                                        <br>
                                     </div>
-
-
-                                    <div class="form-group">
-                                        <input type="text" name="tipo" #tipo="ngModel" [(ngModel)]="cta.tipo" required
-                                            class="form-control form-control-user" readonly />
-                                        <span *ngIf="tipo.touched && !tipo.valid">
-                                            * El tipo es obligatorio
-                                        </span>
-                                        <br>
+                                    
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <!-- <input type="" name="descripcion" #descripcion="ngModel"
+                                                [(ngModel)]="producto.descripcion" required
+                                                class="form-control form-control-user" placeholder="Descripcion"/> -->
+                                            <select name="productid" productid="selectd" #productid="ngModel" [(ngModel)]="pedido.producto._id"
+                                                class="form-control form-control-user" required>
+                                                <option id="optionss" value="" selected disabled>Eliga un producto &dtrif;</option>
+                                                <option value="none">Si desea puede agregar uno más &dtrif;</option>
+                                                <option *ngFor="let produ of productosFilter" [value]="produ._id"
+                                                    style="width: 200px; height: 100px;">
+                                                    {{produ.descripcion}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <input type="number" name="cantidad" #cantidad="ngModel"
+                                                [(ngModel)]="pedido.cantidad" required step="1"
+                                                class="form-control form-control-user" placeholder="Cantidad" />
+                                                <span *ngIf="cantidad.touched && !cantidad.valid">
+                                                    * La cantidad es obligatoria
+                                                </span>
+                                                
+                                            </div>
+                                        <button (click)="handleAdd()" type="button" style="display: inline; max-height: 70px; border-radius: 10px;" class="btn btn-primary col-sm-2">Añadir</button>
+                                        
                                     </div>
-
-
-                                    <div class="form-group">
-                                        <input type="number" step="any" name="monto" #monto="ngModel"
-                                            [(ngModel)]="cta.monto" required class="form-control form-control-user" />
-                                        <span *ngIf="monto.touched && !monto.valid">
-                                            * Defina un valor
-                                        </span>
-                                    </div>
-
-                                    <span *ngIf="!formCta.form.valid"> Recuerde revisar los campos </span>
-
                                     <br>
-                                    <input type="submit" name="Guardar" value="Guardar" [disabled]="!formCta.form.valid"
-                                        class="btn btn-primary btn-user btn-block">
+                                    <div *ngIf="productosSelected.length>0">
+                                        <h4>Productos seleccionados</h4>
+                                        <table  class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="width: 20%">ID</th>
+                                                    <th scope="col" style="width: 20%">Descripcion</th>
+                                                    <th scope="col" style="width: 20%">Precio</th>
+                                                    <th scope="col" style="width: 20%">Cantidad</th>
+                                                    <th scope="col" style="width: 20%">Total</th>
+                                                    <th scope="col" style="width: 20%"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let ped of productosSelected">
+                                                    <td  scope="row">{{ped.producto._id}}</td>
+                                                    <td>{{ped.producto.descripcion}}</td>
+                                                    <td>{{ped.producto.precio}}$</td>
+                                                    <td>{{ped.cantidad}}</td>
+                                                    <td>{{(ped.cantidad*ped.producto.precio).toFixed(2)}}$</td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-dark" (click)="handleclick(ped.producto._id)">X</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td  scope="row"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>Subtotal</td>
+                                                    <td>{{(subtotal).toFixed(2)}}$</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td  scope="row"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>IVA (12%)</td>
+                                                    <td>{{(subtotal*0.12).toFixed(2)}}$</td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td  scope="row"></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>Total</td>
+                                                    <td>{{(subtotal*1.12).toFixed(2)}}$</td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <br>
+                                    <span *ngIf="!formFac.form.valid"> Recuerde revisar los campos </span>
+                                    <br>
+                                    <input type="submit" name="Guardar" value="Guardar"
+                                        [disabled]="!id.valid && productosSelected.length===0" class="btn btn-primary btn-user btn-block">
                                 </form>
                             </div>
                         </div>

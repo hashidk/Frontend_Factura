@@ -4,6 +4,7 @@ import { NgModel } from '@angular/forms';
 import axios from 'axios';
 import { MasterService } from '../service/login.service';
 import { AdminService } from './service/admin.service';
+import { AdminF } from '../models/adminF';
 
 @Component({
   selector: 'app-admin',
@@ -14,8 +15,8 @@ import { AdminService } from './service/admin.service';
 export class AdminComponent {
   objR: string;
   option: number = 0;
-  public data: any;
-  public resumen:any
+  public admin: AdminF;
+  public resumen:Object
 
   constructor(
     private _router: Router, 
@@ -23,10 +24,8 @@ export class AdminComponent {
     private _AdminService:AdminService,
     ) {
     this._AdminService.getInfo().subscribe(resp=>{
-      this.data = resp.data;
-      this.resumen = resp.resumen;
-      console.log(this.resumen);
-      
+      this.admin = resp.data;
+      // this.resumen = resp.resumen;
     },err=>{
       this._router.navigate(['/login']);
     })
@@ -43,9 +42,7 @@ export class AdminComponent {
         })
     }
   }
-
   
-
   activarComponente(@Output() opcion: number) {
     this.option = opcion;
 

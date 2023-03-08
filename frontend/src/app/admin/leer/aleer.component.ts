@@ -1,16 +1,14 @@
 //Admin lee: Banco y Empleado
 
 import { Component, OnInit, Input } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Usuario } from 'src/app/models/usuario';
-import { BancoB } from 'src/app/models/banco';
-import axios from 'axios';
+import { ProductoF } from 'src/app/models/productoF';
 import { Subject } from 'rxjs';
 import { MasterService } from 'src/app/service/login.service';
 
 
 import { Router } from '@angular/router';
 import { AdminService } from '../service/admin.service';
+import { EmpleadoF } from 'src/app/models/empleadoF';
 
 @Component({
     selector: 'app-aleer',
@@ -22,12 +20,12 @@ export class AleerComponent implements OnInit {
     title = "Leer";
     @Input() objR: string;
 
-    empleados: any;
-    bancos: any;
+    empleados: EmpleadoF[];
+    productos: ProductoF[];
 
 
-    public usuario: Usuario;  //empleado
-    public banco: BancoB;
+    public empleado: EmpleadoF;  //empleado
+    public producto: ProductoF;
 
 
     opcion: number = 2;
@@ -49,8 +47,8 @@ export class AleerComponent implements OnInit {
             this._router.navigate(['/login']);
         })
 
-        this._AdminService.getBancos().subscribe(resp=>{
-            this.bancos = resp.data;
+        this._AdminService.getProductos().subscribe(resp=>{
+            this.productos = resp.data;
         },err =>{
             this._router.navigate(['/login']);
         })
@@ -74,28 +72,6 @@ export class AleerComponent implements OnInit {
 
 
     }
-
-    handleConnection($event, bancos:BancoB){
-        $event.preventDefault()
-        $event.target.innerHTML = "Conectando..."
-
-        this._AdminService.testConnection(bancos.dominio+bancos.prueba).subscribe(resp=>{
-            $event.target.innerHTML = "Conectado"
-            $event.target.style.background = "#28a745";
-            setTimeout(() => {
-                $event.target.innerHTML = "Probar conexión"
-                $event.target.style.background = "#6c757d"
-            }, 2000);
-            }, err=>{
-            $event.target.innerHTML = "No hay conexión"
-            $event.target.style.background = "#dc3545";
-            setTimeout(() => {
-                $event.target.innerHTML = "Probar conexión"
-                $event.target.style.background = "#6c757d"
-            }, 2000);
-        })
-
-      }
 
     LoadInvoice() {
         this.service.GetAllInvoice().subscribe(res => {

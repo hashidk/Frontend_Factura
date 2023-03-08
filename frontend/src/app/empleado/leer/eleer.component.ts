@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { EmpleadoService } from '../service/empleado.service';
 import { MasterService } from '../../service/login.service';
+import { ClienteF, FacturaF } from '../../models';
+import { Global } from '../../service/global';
 
 @Component({
     selector: 'app-eleer',
@@ -16,10 +18,10 @@ import { MasterService } from '../../service/login.service';
 export class EleerComponent implements OnInit {
     @Input() objR: string;
 
-    //public clientes: any;
+    public direc = Global.url+"empleado/facturas/"
 
-    public clientes: any;
-    public cuentas: any;
+    public clientes: ClienteF[];
+    public facturas: FacturaF[];
 
     opcion: number = 2;
     public error: string = "";
@@ -40,8 +42,8 @@ export class EleerComponent implements OnInit {
             this._router.navigate(['/login']);
         })
 
-        this._EmpleadoService.getCuentas().subscribe(resp => {
-            this.cuentas = resp.data;
+        this._EmpleadoService.getFacturas().subscribe(resp => {
+            this.facturas = resp.data;
         }, err => {
             this._router.navigate(['/login']);
         })
@@ -59,13 +61,15 @@ export class EleerComponent implements OnInit {
 
         };
         this.LoadInvoice();
-
-
     }
     LoadInvoice() {
         this.service.GetAllInvoice().subscribe(res => {
             this.dtTrigger.next(null);
         })
+    }
+
+    getPDF(factura:FacturaF){
+        factura._id
     }
 
 }

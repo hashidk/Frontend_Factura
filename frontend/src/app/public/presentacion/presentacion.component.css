@@ -1,0 +1,90 @@
+.present {
+    display: flex;
+    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    flex-direction: row;
+
+}
+
+.present .contenido {
+    flex-basis: 40%;
+    color: #2c2c6a;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.present .contenido ul {
+    list-style: none;
+}
+
+.present .contenido h1 {
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.present span {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.present .slider {
+    flex-basis: 60%;
+    height: 80vh;
+    overflow-y: hidden;
+}
+
+.informacion {
+    width: 80%;
+    min-width: 500px;
+    margin: 0 auto;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    color: #2c2c6a;
+}
+
+.informacion h3, h4 {
+    font-weight: bold;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+}
+
+.informacion p {
+    font-size: 1rem;
+}
+
+.informacion .img {
+    width: 100%;
+    min-width: 200px;
+}
+
+.informacion .img img {
+    width: 100%;
+    height: auto;
+}
+
+@media (max-width: 790px) {
+    .present .slider {
+        flex-basis: 90%;
+        margin: 0 auto;
+    }
+    .present .contenido {
+        flex-basis: 90%;
+        margin: 0 auto;
+    }
+
+    .present {
+        height: 120vh;
+    }
+}
+
+@media (max-width: 440px) {
+    .present {
+        height: 100vh;
+    }  
+}

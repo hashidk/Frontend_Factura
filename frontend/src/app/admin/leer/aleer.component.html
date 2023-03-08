@@ -25,34 +25,22 @@
             </table>
         </div>
         <!-- Leer banco -->
-        <div *ngIf="objR=='banco'">
-            <h1 class="h4 text-gray-900 mb-4">Bancos</h1>
+        <div *ngIf="objR=='producto'">
+            <h1 class="h4 text-gray-900 mb-4">Productos</h1>
 
             <table datatable [dtOptions]="dtoptions" class="table ">
                 <thead>
                     <tr>
-                        <th style="width: 11%">Id</th>
-                        <th style="width: 11%">Nombre</th>
-                        <th style="width: 11%">Usuario</th>
-                        <th style="width: 11%">Contraseña</th>
-                        <th style="width: 11%">Dominio</th>
-                        <th style="width: 11%">Dir Prueba</th>
-                        <th style="width: 11%">Dir Transferir</th>
-                        <th style="width: 20%"></th>
+                        <th style="width: 33%">Id</th>
+                        <th style="width: 33%">Nombre</th>
+                        <th style="width: 33%">Usuario</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let banco of bancos">
-                        <td> {{banco._id}}</td>
-                        <td>{{banco.nombre}} </td>
-                        <td>{{banco.usuario}} </td>
-                        <td>{{banco.password}} </td>
-                        <td>{{banco.dominio}}</td>
-                        <td>{{banco.prueba}}</td>
-                        <td>{{banco.transferir}}</td>
-                        <td>
-                            <button (click)="handleConnection($event, banco)" type="button" class="btn btn-secondary" style="border-radius: 10px;">Probar Conexión</button>
-                        </td>
+                    <tr *ngFor="let producto of productos">
+                        <td> {{producto._id}}</td>
+                        <td>{{producto.descripcion}} </td>
+                        <td>{{producto.precio}} </td>
                     </tr>
                 </tbody>
             </table>

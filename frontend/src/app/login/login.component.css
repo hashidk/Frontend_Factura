@@ -51,8 +51,7 @@ button {
 
 
 .bg-gradient-primary {
-  background: linear-gradient(to right, #6492e6, #28f6bf) !important;
-
+  /* background: linear-gradient(to right, #6492e6, #28f6bf) !important; */
   background-size: cover;
 }
 

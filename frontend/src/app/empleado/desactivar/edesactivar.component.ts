@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import { Router } from '@angular/router';
 import { EmpleadoService } from '../service/empleado.service';
+import { ClienteF } from 'src/app/models';
 
 
 @Component({
@@ -17,8 +18,7 @@ import { EmpleadoService } from '../service/empleado.service';
 
 export class EdesactivarComponent implements OnInit {
     @Input() objR: string;
-    clientes: any;
-    cuentas: any;
+    clientes: ClienteF[];
     dtoptions: DataTables.Settings = {};  //para tabla
 
 
@@ -35,13 +35,6 @@ export class EdesactivarComponent implements OnInit {
         this._EmpleadoService.getClientes().subscribe(resp=>{
             this.clientes = resp.data;
             this.clientes = this.clientes.filter((ele:any) => ele.activo===false)
-        }, err=>{
-            this._router.navigate(['/login']);
-        })
-
-        this._EmpleadoService.getCuentas().subscribe(resp=>{
-            this.cuentas = resp.data;
-            this.cuentas = this.cuentas.filter((ele:any) => ele.activo===false)
         }, err=>{
             this._router.navigate(['/login']);
         })
@@ -70,15 +63,7 @@ export class EdesactivarComponent implements OnInit {
                 },err=>{
                     this.error = err.error.message
                 })
-            } else {
-                this._EmpleadoService.deleteCuenta(id).subscribe(resp=>{
-                    alert("Cuenta activada")
-                    this.error = ""
-                },err=>{
-                    this.error = err.error.message
-                })
-            }
-            // this._EmpleadoService.
+            } 
         }
     }
 

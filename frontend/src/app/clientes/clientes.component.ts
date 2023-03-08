@@ -1,5 +1,8 @@
-import { Component, Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClienteF, FacturaF } from '../models';
+import { Global } from '../service/global';
+import { isAuthService } from '../service/isAuth.service';
 import { MasterService } from '../service/login.service';
 import { ClienteService } from './services/cliente.services';
 
@@ -7,20 +10,22 @@ import { ClienteService } from './services/cliente.services';
   selector: 'app-clientes',
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.css'],
-  providers: [MasterService, ClienteService],
+  providers: [MasterService, ClienteService, isAuthService],
 })
-export class ClientesComponent {
-  public cuenta1:any = null
+export class ClientesComponent implements OnInit{
   objR: string;
   option: number = 0;
-  public data: any;
-  public cuentas:any;
+  public data: ClienteF;
+  public facturas: FacturaF[];
   public ab:string = "1"
+  public direc = Global.url+"cliente/facturas/"
+  dtoptions: DataTables.Settings = {};  //para tabla
 
   constructor(
     private _router: Router, 
     private _MasterService:MasterService,
     private _ClienteService:ClienteService,
+    private __isAuthService:isAuthService
     ) {
     this._ClienteService.getInfo().subscribe(resp=>{
       this.data = resp.data;
@@ -28,26 +33,29 @@ export class ClientesComponent {
       this._router.navigate(['/login']);
     })
 
-    this._ClienteService.getMisCuentas().subscribe(resp=>{
-      this.cuentas = resp.data;
+    this._ClienteService.getMisFacturas().subscribe(resp=>{
+      this.facturas = resp.data;
     },err=>{
       this._router.navigate(['/login']);
     })
 
   }
 
-  setCuentaExt(cuenta:any){
-    this.cuenta1 = cuenta;
+  click(){
+    this.__isAuthService.setAuth(true, "okok55")
   }
 
-  getCuenta($event, cuenta:any){
-    this.cuenta1 = cuenta    
-    this.activarComponente(1)
-  }
-
-  recuperarCuenta(){
-    return this.cuenta1;
-  }
+  ngOnInit(): void {
+    this.dtoptions = {
+        pagingType: 'full_numbers'
+        ,
+        searching: true,
+        //  paging:false
+        language: {
+            searchPlaceholder: 'Escribir Nombre'
+        }
+    };
+}
 
   logout(): void {
     if (confirm('¿Estás seguro que deseas salir?')) {
@@ -62,7 +70,6 @@ export class ClientesComponent {
 
   activarComponente(@Output() opcion: number) {
     this.option = opcion;
-
   }
 
   getInputValue(inputValue: string) {
