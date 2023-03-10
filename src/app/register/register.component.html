@@ -73,31 +73,31 @@
 
                                     <ng-container *ngIf="pasoActual===3">
                                         <input type="text" name="empresa_nombre" #empresa_nombre="ngModel" [(ngModel)]="register.empresa_nombre"
-                                            required pattern="[a-zA-Z]+" class="inputForm input100"
+                                             class="inputForm input100"
                                             placeholder="Nombre de su empresa" />
                                         <p *ngIf="empresa_nombre.touched && !empresa_nombre.valid">
                                             * El nombre de su empresa es obligatorio
                                         </p>
                                         <input type="text" name="empresa_dir" #empresa_dir="ngModel"
-                                            [(ngModel)]="register.empresa_dir" required pattern="[a-zA-Z]+"
+                                            [(ngModel)]="register.empresa_dir" 
                                             class="inputForm input100" placeholder="La dirección física" />
                                         <p *ngIf="empresa_dir.touched && !empresa_dir.valid">
                                             * La dirección física de su Empresa es obligatorio
                                         </p>
                                         <input type="text" name="empresa_cuidad" #empresa_cuidad="ngModel" [(ngModel)]="register.empresa_cuidad"
-                                            required pattern="[a-zA-Z]+" class="inputForm input50"
+                                             class="inputForm input50"
                                             placeholder="Ciudada" />
                                         <p *ngIf="empresa_cuidad.touched && !empresa_cuidad.valid">
                                             * La cuidad en la que se encuentra su empresa es obligatorio
                                         </p>
                                         <input type="text" name="empresa_privincia" #empresa_privincia="ngModel"
-                                            [(ngModel)]="register.empresa_privincia" required pattern="[a-zA-Z]+"
+                                            [(ngModel)]="register.empresa_privincia" 
                                             class="inputForm input50" placeholder="Provincia" />
                                         <p *ngIf="empresa_privincia.touched && !empresa_privincia.valid">
                                             * La Provincia en la que se encuentra su empresa es obligatorio
                                         </p>
                                         <input type="text" name="empresa_pais" #empresa_pais="ngModel" [(ngModel)]="register.empresa_pais"
-                                            required pattern="[a-zA-Z]+" class="inputForm input100"
+                                             class="inputForm input100"
                                             placeholder="País" />
                                         <p *ngIf="empresa_pais.touched && !empresa_pais.valid">
                                             * El País en el que se encuentra su empresa es obligatorio

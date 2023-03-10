@@ -86,7 +86,7 @@ export class RegisterComponent {
       this.error = "";
       this.success = "Registro exitoso"
     }, err=>{
-      this.error = "error";
+      this.error = err.error.message;
       this.success = ""
     })
 

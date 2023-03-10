@@ -91,7 +91,7 @@ export class EactualizarComponent implements OnInit {
                 apellido: form.value.apellido,
                 provincia: form.value.provincia,
                 ciudad: form.value.ciudad,
-                codigo_postal: form.value.codigo,
+                dir: form.value.dir,
                 correo: form.value.email
             }, form.value.id).subscribe(resp=>{
                 this.error = "";

@@ -150,6 +150,9 @@
                                         Muy bien: {{success}}</p>
                                 </div>
                                 <form class="user" #formBanco="ngForm" (ngSubmit)="onSubmit(formBanco)" class="form">
+                                    <input type="text" name="id" #id="ngModel" [(ngModel)]="producto._id" required
+                                            class="inputForm input100"
+                                    readonly />
                                     <textarea name="descripcion" #descripcion="ngModel"
                                         [(ngModel)]="producto.descripcion" required
                                         class="inputForm input100" placeholder="Descripcion"></textarea>

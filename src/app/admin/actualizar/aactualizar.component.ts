@@ -83,8 +83,10 @@ export class AactualizarComponent implements OnInit {
         } else {
             this._AdminService.updateProducto({
                 descripcion: form.value.descripcion,
-                precio: form.value.precio,
+                precio: parseFloat(form.value.precio),
             }, form.value.id).subscribe(resp=> {
+                console.log(resp);
+                
                 this.error = "";
                 this.success = "Producto actualizado"
             }, err=> {
