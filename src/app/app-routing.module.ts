@@ -25,10 +25,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home', component: PublicComponent },
-
-  // { path: 'empleado', component: EmpleadoComponent, canActivate: [AuthGuard] },
-  // { path: 'empleado', loadChildren: empleadoModule, canActivate: [AuthGuard] },
-
   { path: 'sistema', component: (() => {
     switch (localStorage.getItem("rol") || "") {
       case "":
@@ -44,18 +40,7 @@ const routes: Routes = [
     }
   })()},
 
-  // { path: 'cliente', component: ClientesComponent, canActivate: [AuthGuard] },
-  // { path: 'cliente', loadChildren: clienteModule },
-
-  // { path: 'cliente', component: ClientesComponent },
-  // { path: 'transferencia-interna', component: TransferenciaInternaComponent },
-  // { path: 'cliente', component: ClienteComponent },
-  // { path: 'escritorio', component: EscritorioComponent },
-
-  // { path: 'admin', component: AdminComponent, canActivate: [AuthGuard]  },  //
-  // { path: 'admin', loadChildren: adminModule },
-  
-  { path: '**', loadChildren: inicioModule },
+  { path: '**', component: PublicComponent },
 ];
 
 @NgModule({

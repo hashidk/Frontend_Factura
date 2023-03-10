@@ -44,9 +44,14 @@ h2 {
     position: relative;
 }
 
-.contenedorForm > div {
-    flex-basis: 50%;
-    width: 50%;
+.contenedorForm > div:first-child {
+    flex-basis: 60%;
+    width: 60%;
+}
+
+.contenedorForm > div:last-child {
+    flex-basis: 40%;
+    width: 40%;
 }
 
 .contenedorForm > .imagen {
@@ -129,8 +134,8 @@ h2 {
 }
 
 .imgForm {
-    height: 300px;
-    width: 300px;
+    height: auto;
+    width: 80%;
 }
 
 .pasos {
@@ -190,3 +195,40 @@ h2 {
     font-weight: bold;
 }
 
+.invoice {
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+}
+.tabla {
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.invoice thead, .tabla thead {
+    background-color: #36367c;
+}
+.tabla thead {
+    height: 3rem;
+    font-weight: bold;
+}
+
+.invoice tbody, .tabla tbody {
+    background-color: #525295;
+}
+
+.tabla tbody tr {
+    height: 2.5rem;
+}
+
+.invoice tfoot {
+    background-color: #36367c;
+}
+
+.invoice tbody tr:hover, .tabla tbody tr:hover {
+    background-color: #36367c;
+}

@@ -11,6 +11,9 @@ export class Register {
         public empresa_pais: string,
         public firm: string,
         public image: string,
+        public password:string,
+        public confirm_password:string,
+        public email:string
     ) { }
 
     reset(){
@@ -25,5 +28,8 @@ export class Register {
         this.empresa_pais= ""
         this.firm= ""
         this.image= ""
+        this.password = "",
+        this.confirm_password = ""
+        this.email = ""
     }
 }

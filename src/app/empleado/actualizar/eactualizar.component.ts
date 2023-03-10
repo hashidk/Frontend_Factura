@@ -98,7 +98,7 @@ export class EactualizarComponent implements OnInit {
                 this.success = "Cliente actualizado"
                 this.actualizarState()
             },err=>{
-                this.error = err.response.data;
+                this.error = err.error.message;
                 this.success = ""
             })
             this.cliente.reset();
@@ -106,18 +106,18 @@ export class EactualizarComponent implements OnInit {
         } else {
             if (this.productosSelected.length>0) {
                 this._EmpleadoService.updateFactura({
-                    productos: this.productosSelected.map(ele => [ele.producto._id, ele.cantidad]),
+                    productos: this.productosSelected.map(ele => {return {_id: ele.producto._id, cantidad: ele.cantidad}})
                 }, form.value.id).subscribe(resp=>{
                     this.error = "";
-                    this.success = "Cuenta actualizada"
+                    this.success = "Factura actualizada"
                     this.actualizarState()
                 },err=>{
-                    this.error = err.response.data;
+                    this.error = err.error.message;
                     this.success = ""
                 })
             }
 
-            this.factura.reset();
+            // this.factura.reset()
         }
         
     }
@@ -158,8 +158,8 @@ export class EactualizarComponent implements OnInit {
     }
 
     handleAdd(){
-        if (this.pedido.producto._id !== "none") {
-          this.productos.filter(ele => ele._id === this.pedido.producto._id)[0]
+        if (this.pedido.producto._id !== "none" && this.pedido.producto._id !== "" && !this.productosSelected.map(ele => ele.producto._id).includes(this.pedido.producto._id)) {
+            this.productos.filter(ele => ele._id === this.pedido.producto._id)[0]
           this.productosSelected.push({
             producto: this.productos.filter(ele => ele._id === this.pedido.producto._id)[0],
             cantidad: this.pedido.cantidad,

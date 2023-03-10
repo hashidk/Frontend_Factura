@@ -20,7 +20,7 @@
                             <form class="user" #f="ngForm" (ngSubmit)="onSubmit(f)" id="form1" class="form">
                                 <div class="form-group">
                                     <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="login.nickname"
-                                        required pattern="[0-9]{10,10}" class="inputForm input100"
+                                        required pattern="[0-9a-z]{10,}" class="inputForm input100"
                                         placeholder="Usuario" />
                                     </div>
                                 <p *ngIf="nickname.touched && !nickname.valid">

@@ -43,11 +43,6 @@ export class EcrearComponent {
   ) {
     this.cliente = new ClienteF("", "", "", "", "", "", "",{email: "", nickname: ""}, false, "")
     this.factura = new FacturaF("", "", "", "", "", 0, [], "", "")
-    this._EmpleadoService.getInfo().subscribe(resp=>{
-      this.cliente = resp.data;
-    },err=>{
-      this._router.navigate(['/login']);
-    })
 
     this._EmpleadoService.getProductos().subscribe(resp=>{
       this.productos = resp.data;
@@ -75,7 +70,10 @@ export class EcrearComponent {
         nombre: form.value.nombre,
         apellido: form.value.apellido,
         identificacion: form.value.id,
-        correo: form.value.email
+        correo: form.value.email,
+        provincia:form.value.provincia, 
+        ciudad:form.value.ciudad, 
+        dir:form.value.dir, 
       }).subscribe(resp=>{
         this.error = "";
         this.success = "Cliente creado"
@@ -88,10 +86,10 @@ export class EcrearComponent {
       if (this.productosSelected.length>0) {
         this._EmpleadoService.addFactura({
           clienteid: form.value.id,
-          productos: this.productosSelected.map(ele => [ele.producto._id, ele.cantidad]),
+          productos: this.productosSelected.map(ele => {return {_id: ele.producto._id, cantidad: ele.cantidad}})
         }).subscribe(resp=>{
           this.error = "";
-          this.success = "Producto creado"
+          this.success = "Factura creada"
           this.factura.reset()
         }, err=>{
           this.error = err.error.message;
@@ -102,7 +100,7 @@ export class EcrearComponent {
   }
 
   handleAdd(){
-    if (this.pedido.producto._id !== "none") {
+    if (this.pedido.producto._id !== "none" && this.pedido.producto._id !== "" && !this.productosSelected.map(ele => ele.producto._id).includes(this.pedido.producto._id)) {
       this.productos.filter(ele => ele._id === this.pedido.producto._id)[0]
       this.productosSelected.push({
         producto: this.productos.filter(ele => ele._id === this.pedido.producto._id)[0],

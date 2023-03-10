@@ -21,13 +21,14 @@
                                 style="background-color: rgb(110, 241, 105); display: flex; align-items: center;">
                                 <p
                                     style="margin: 5px 10px; padding: 5px 10px; color: white; border-left: 2.5px solid white;">
-                                    Muy bien: {{success}}</p>
+                                    Muy bien: {{success}}, <a href="">Iniciar Sesión</a></p>
                             </div>
                             <div>
-                                <form class="user" #formCli="ngForm" (submit)="onSubmit($event)" class="form">
+                                <form class="user" #formCli="ngForm" (submit)="onSubmit(formCli)" class="form">
                                     <div class="pasos"  style="width: 100%;">
                                         <div style="width: 100%;">
-                                            <button class="boton" *ngFor="let paso of pasos" (click)="changePaso($event, paso.paso)" [value]="paso.paso" style="width: calc(25%); background-color: transparent; border: none;">
+                                            <button class="boton" *ngFor="let paso of pasos" [disabled]="paso.paso>pasoActual"
+                                            (click)="changePaso($event, paso.paso)" [value]="paso.paso" style="width: calc(25%); background-color: transparent; border: none;">
                                                 <div>
                                                     <div class="numero" [id]="paso.paso===pasoActual.valueOf()  ? 'activeButton' : ''">
                                                         <h4>{{paso.paso}}</h4>
@@ -101,32 +102,46 @@
                                         <p *ngIf="empresa_pais.touched && !empresa_pais.valid">
                                             * El País en el que se encuentra su empresa es obligatorio
                                         </p>
-    
-                                        <input type="file" name="image" #image="ngModel"
-                                            [(ngModel)]="register.image" required 
-                                            class="inputForm input50" accept="image/*"/>
-                                        <span *ngIf="image.touched && !image.valid">
-                                            * La imagen es obligatoria
-                                        </span>
-
                                     </ng-container>
 
-                                    <div *ngIf="pasoActual===4">
-                                        <h5 *ngIf="formCli.form.valid" class="mensaje"> 
+                                    <ng-container *ngIf="pasoActual===4">
+                                        <input type="email" name="email" #email="ngModel"
+                                        [(ngModel)]="register.email" required
+                                        class="inputForm input100" placeholder="Su correo electrónico" />
+                                        <p *ngIf="email.touched && !email.valid">
+                                            * El correo electrónico es obligatoria.
+                                        </p>
+                                        <input type="password" name="password" #password="ngModel"
+                                        [(ngModel)]="register.password" required pattern="[a-zA-Z0-9]{8,}"
+                                        class="inputForm input100" placeholder="Su contraseña" />
+                                        <p *ngIf="password.touched && !password.valid">
+                                            * La contraseña es obligatoria, mínimo 8 carácteres.
+                                        </p>
+                                        <input type="password" name="confirm_password" #confirm_password="ngModel"
+                                        [(ngModel)]="register.confirm_password" required pattern="[a-zA-Z0-9]{8,}"
+                                        class="inputForm input100" placeholder="Vuelva a ingresar su contraseña" />
+                                        <p *ngIf="confirm_password.touched && !confirm_password.valid">
+                                            * La contraseña es obligatoria, mínimo 8 carácteres.
+                                        </p>
+                                        <p *ngIf="confirm_password.touched && register.password !== register.confirm_password">
+                                            * Las contraseñas deben ser iguales
+                                        </p>
+                                        
+                                        <h5 *ngIf="formCli.form.valid && confirm_password === password" class="mensaje"> 
                                             &infin; Muy bien, parece que todo se encuentra en orden, para terminar el proceso presione 
                                             en el botón de Registrarse, 
                                             en caso de que dude de que alguno de sus datos no sean 
                                             correctos, aún puede regresar para revisarlos o 
                                             cambiarlos </h5>
-                                        <h5 *ngIf="!formCli.form.valid" class="mensaje"> Recuerde revisar los campos </h5>
-                                    </div>
+                                        <h5 *ngIf="!formCli.form.valid && confirm_password !== password" class="mensaje"> Recuerde revisar los campos </h5>
+                                    </ng-container>
                                     
                                     
                                     <div style="display: flex; justify-content: space-between;">
                                         <button class="submit input50" (click)="retro($event)" *ngIf="pasoActual>1">Anterior paso</button>
-                                        <button class="submit input50" (click)="next($event)" *ngIf="pasoActual<4">Siguiente paso</button>
+                                        <button class="submit input50" (click)="next($event)" *ngIf="pasoActual<4" [disabled]="!formCli.form.valid">Siguiente paso</button>
                                         <div *ngIf="pasoActual===4">              
-                                            <input type="submit" name="Guardar" value="Registrarse" [disabled]="!formCli.form.valid"
+                                            <input type="submit" name="Guardar" value="Registrarse" [disabled]="!formCli.form.valid || register.password !== register.confirm_password"
                                             class="submit input50 submit-second">
                                         </div>
                                     </div>

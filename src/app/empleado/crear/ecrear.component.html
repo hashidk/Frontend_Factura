@@ -4,9 +4,8 @@
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <div class="row">
-                    <div class="col-lg-4 d-none d-lg-block bg-register-image"></div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
+                    <div class="contenedorForm">
+                        <div>
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">{{title}} {{objR}}</h1>
                             </div>
@@ -25,83 +24,56 @@
                             </div>
 
                             <!-- Form Crear Empleado -->
-                            <div *ngIf="objR=='cliente'">
-                                <form class="user" #formCli="ngForm" (ngSubmit)="onSubmit(formCli)">
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-
-                                            <input type="text" name="id" #id="ngModel" [(ngModel)]="cliente._id" required
-                                                class="form-control form-control-user"
-                                                placeholder="Identificación" readonly />
-                                            <br>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="cliente.nombre"
-                                                required pattern="[a-zA-Z]+" class="form-control form-control-user"
-                                                placeholder="Nombres" />
-                                            <span *ngIf="nombre.touched && !nombre.valid">
-                                                * Nombre es obligatorio
-                                            </span>
-                                            <br>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="apellido" #apellido="ngModel"
-                                                [(ngModel)]="cliente.apellido" required pattern="[a-zA-Z]+"
-                                                class="form-control form-control-user" placeholder="Apellidos" />
-                                            <span *ngIf="apellido.touched && !apellido.valid">
-                                                * Apellido es obligatorio
-                                            </span>
-                                            <br>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <input type="text" name="provincia" #provincia="ngModel"
-                                            [(ngModel)]="cliente.provincia" required pattern="[a-zA-Z]+"
-                                            class="form-control form-control-user" placeholder="Provincia" />
-                                        <span *ngIf="provincia.touched && !provincia.valid">
-                                            * Provincia es obligatorio
-                                        </span>
-
-                                    </div>
-
+                            <ng-container *ngIf="objR=='cliente'">
+                                <form class="user" #formCli="ngForm" (ngSubmit)="onSubmit(formCli)" class="form">
+                                    <input type="text" name="id" #id="ngModel" [(ngModel)]="cliente.identificacion" required
+                                        class="inputForm input100"
+                                        placeholder="Identificación" />
                                     <br>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="text" name="ciudad" #ciudad="ngModel" [(ngModel)]="cliente.ciudad"
-                                                required pattern="[a-zA-Z]+" class="form-control form-control-user"
-                                                placeholder="Ciudad" />
-                                            <span *ngIf="ciudad.touched && !ciudad.valid">
-                                                * Ciudad es obligatorio
-                                            </span>
-                                            <br>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="dir" #dir="ngModel" [(ngModel)]="cliente.dir"
-                                                required pattern="[a-zA-Z]+" class="form-control form-control-user"
-                                                placeholder="Dirección" />
-                                            <span *ngIf="dir.touched && !dir.valid">
-                                                * La dirección es obligatoria
-                                            </span>
-                                            <br>
+                                    <p *ngIf="id.touched && !id.valid">
+                                        * Identificación es obligatorio
+                                    </p>
 
-                                        </div>
-                                    </div>
+                                    <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="cliente.nombre"
+                                        required pattern="[a-zA-Z]+" class="inputForm input50"
+                                        placeholder="Nombres" />
+                                    <p *ngIf="nombre.touched && !nombre.valid">
+                                        * Nombre es obligatorio
+                                    </p>
+                                    <input type="text" name="apellido" #apellido="ngModel"
+                                        [(ngModel)]="cliente.apellido" required pattern="[a-zA-Z]+"
+                                        class="inputForm input50" placeholder="Apellidos" />
+                                    <p *ngIf="apellido.touched && !apellido.valid">
+                                        * Apellido es obligatorio
+                                    </p>
+
+                                    <input type="text" name="provincia" #provincia="ngModel"
+                                        [(ngModel)]="cliente.provincia" required pattern="[a-zA-Z]+"
+                                        class="inputForm input100" placeholder="Provincia" />
+                                    <p *ngIf="provincia.touched && !provincia.valid">
+                                        * Provincia es obligatorio
+                                    </p>
+
+                                    <input type="text" name="ciudad" #ciudad="ngModel" [(ngModel)]="cliente.ciudad"
+                                        required pattern="[a-zA-Z]+" class="inputForm input50"
+                                        placeholder="Ciudad" />
+                                    <p *ngIf="ciudad.touched && !ciudad.valid">
+                                        * Ciudad es obligatorio
+                                    </p>
+                                    <input type="text" name="dir" #dir="ngModel" [(ngModel)]="cliente.dir"
+                                        required pattern="[a-zA-Z]+" class="inputForm input50"
+                                        placeholder="Dirección" />
+                                    <p *ngIf="dir.touched && !dir.valid">
+                                        * La dirección es obligatoria
+                                    </p>
 
 
-                                    <div class="form-group">
-                                        <input type="text" name="email" #email="ngModel" [(ngModel)]="cliente.usuario.email"
-                                            required class="form-control form-control-user" placeholder="Email" />
-                                        <span *ngIf="email.touched && !email.valid">
-                                            * Correo es obligatorio
-                                        </span>
+                                    <input type="text" name="email" #email="ngModel" [(ngModel)]="cliente.usuario.email"
+                                        required class="inputForm input100" placeholder="Email" />
+                                    <p *ngIf="email.touched && !email.valid">
+                                        * Correo es obligatorio
+                                    </p>
 
-                                    </div>
-                                    <br>
                                     <span *ngIf="!formCli.form.valid"> Recuerde revisar los campos </span>
                                     <br>
                                     <input type="submit" name="Guardar" value="Guardar"
@@ -109,72 +81,58 @@
                                         class="btn btn-primary btn-user btn-block">
                                 </form>
 
-                            </div>
+                            </ng-container>
 
-                            <div *ngIf="objR=='factura'">
+                            <ng-container *ngIf="objR=='factura'">
 
-                                <form class="user" #formFac="ngForm" (ngSubmit)="onSubmit(formFac)">
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <select name="id" id="selectd" #id="ngModel" [(ngModel)]="factura.cliente"
-                                            class="form-control form-control-user" required>
-                                                <option id="optionss" value="" selected disabled>Elegir el cliente &dtrif;</option>
-                                                <option *ngFor="let cliente of clientes" [value]="cliente._id"
-                                                    style="width: 200px; height: 100px;">
-                                                    <b>{{cliente.nombre}} {{cliente.apellido}}</b>, id:{{cliente._id}}
-                                                </option>
-                                            </select>
-                                            <span *ngIf="(id.touched && !id.valid)">
-                                                * Este campo es obligatorio
-                                            </span>
-                                            <br>
-                                        </div>
-                                    </div>
+                                <form class="user" #formFac="ngForm" (ngSubmit)="onSubmit(formFac)" class="form">
+                                    <select name="id" id="selectd" #id="ngModel" [(ngModel)]="factura.cliente"
+                                    class="inputForm input100" value="" required>
+                                        <option id="optionss" value="" selected disabled>Elegir el cliente &dtrif;</option>
+                                        <option *ngFor="let cliente of clientes" [value]="cliente._id"
+                                            style="width: 200px; height: 100px;">
+                                            <b>{{cliente.nombre}} {{cliente.apellido}}</b>, id:{{cliente._id}}
+                                        </option>
+                                    </select>
+                                    <span *ngIf="(id.touched && !id.valid)">
+                                        * Este campo es obligatorio
+                                    </span>
+
+                                    <select name="productid" productid="selectd" #productid="ngModel" [(ngModel)]="pedido.producto._id"
+                                        class="inputForm input50" required>
+                                        <option id="optionss" value="" selected disabled>Eliga un producto &dtrif;</option>
+                                        <option value="none">Si desea puede agregar uno más &dtrif;</option>
+                                        <option *ngFor="let produ of productosFilter" [value]="produ._id"
+                                            style="width: 200px; height: 100px;">
+                                            {{produ.descripcion}}
+                                        </option>
+                                    </select>
                                     
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <!-- <input type="" name="descripcion" #descripcion="ngModel"
-                                                [(ngModel)]="producto.descripcion" required
-                                                class="form-control form-control-user" placeholder="Descripcion"/> -->
-                                            <select name="productid" productid="selectd" #productid="ngModel" [(ngModel)]="pedido.producto._id"
-                                                class="form-control form-control-user" required>
-                                                <option id="optionss" value="" selected disabled>Eliga un producto &dtrif;</option>
-                                                <option value="none">Si desea puede agregar uno más &dtrif;</option>
-                                                <option *ngFor="let produ of productosFilter" [value]="produ._id"
-                                                    style="width: 200px; height: 100px;">
-                                                    {{produ.descripcion}}
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <input type="number" name="cantidad" #cantidad="ngModel"
-                                                [(ngModel)]="pedido.cantidad" required step="1"
-                                                class="form-control form-control-user" placeholder="Cantidad" />
-                                                <span *ngIf="cantidad.touched && !cantidad.valid">
-                                                    * La cantidad es obligatoria
-                                                </span>
-                                                
-                                            </div>
-                                        <button (click)="handleAdd()" type="button" style="display: inline; max-height: 70px; border-radius: 10px;" class="btn btn-primary col-sm-2">Añadir</button>
-                                        
-                                    </div>
+                                    <input type="number" name="cantidad" #cantidad="ngModel"
+                                        [(ngModel)]="pedido.cantidad" required step="1"
+                                        class="inputForm input50" placeholder="Cantidad" />
+                                        <span *ngIf="cantidad.touched && !cantidad.valid">
+                                            * La cantidad es obligatoria
+                                        </span>
+                                        <button (click)="handleAdd()" type="button" style="display: inline; max-height: 70px; border-radius: 10px;" class="input100">Añadir</button>
                                     <br>
-                                    <div *ngIf="productosSelected.length>0">
+                                    
+                                    <ng-container *ngIf="productosSelected.length>0">
                                         <h4>Productos seleccionados</h4>
-                                        <table  class="table table-hover">
+                                        <table class="invoice">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col" style="width: 20%">ID</th>
-                                                    <th scope="col" style="width: 20%">Descripcion</th>
-                                                    <th scope="col" style="width: 20%">Precio</th>
-                                                    <th scope="col" style="width: 20%">Cantidad</th>
-                                                    <th scope="col" style="width: 20%">Total</th>
-                                                    <th scope="col" style="width: 20%"></th>
+                                                    <!-- <th scope="col" style="width: 20%">ID</th> -->
+                                                    <th style="width: 20%">Descripcion</th>
+                                                    <th style="width: 20%">Precio</th>
+                                                    <th style="width: 20%">Cantidad</th>
+                                                    <th style="width: 20%">Total</th>
+                                                    <th style="width: 20%"></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let pedido of productosSelected">
-                                                    <td  scope="row">{{pedido.producto._id}}</td>
+                                                    <!-- <td>{{pedido.producto._id}}</td> -->
                                                     <td>{{pedido.producto.descripcion}}</td>
                                                     <td>{{pedido.producto.precio}}$</td>
                                                     <td>{{pedido.cantidad}}</td>
@@ -183,42 +141,38 @@
                                                         <button type="button" class="btn btn-dark" (click)="handleclick(pedido.producto._id)">X</button>
                                                     </td>
                                                 </tr>
+                                            </tbody>
+                                            <tfoot>
                                                 <tr>
-                                                    <td  scope="row"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>Subtotal</td>
+                                                    <td colspan="3">Subtotal:</td>
                                                     <td>{{(subtotal).toFixed(2)}}$</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td  scope="row"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>IVA (12%)</td>
+                                                    <td colspan="3">IVA (12%):</td>
                                                     <td>{{(subtotal*0.12).toFixed(2)}}$</td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
-                                                    <td  scope="row"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>Total</td>
+                                                    <td colspan="3">Total:</td>
                                                     <td>{{(subtotal*1.12).toFixed(2)}}$</td>
                                                     <td></td>
                                                 </tr>
-                                            </tbody>
+                                            </tfoot>
                                         </table>
-                                    </div>
+                                    </ng-container>
                                     <br>
                                     <span *ngIf="!formFac.form.valid"> Recuerde revisar los campos </span>
                                     <br>
                                     <input type="submit" name="Guardar" value="Guardar"
                                         [disabled]="!id.valid && productosSelected.length===0" class="btn btn-primary btn-user btn-block">
                                 </form>
-                            </div>
+                            </ng-container>
                             <hr>
 
+                        </div>
+                        <div class="imagen">
+                            <img class="imgForm" src="../../../assets/imgs/factura-electronica.svg" alt="">
                         </div>
                     </div>
                 </div>

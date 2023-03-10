@@ -26,7 +26,7 @@ export class RegisterComponent {
   public pasoActual:Number = 1;
 
   constructor(private _router: Router, private _MasterService:MasterService) {
-    this.register = new Register('', '', '', "", "", "", "", "", "", "", null)
+    this.register = new Register('', '', '', "", "", "", "", "", "", "", null, "", "", "")
     this.error = ""
     this.success = ""
     this.tipoEmp = {tipo: ""}
@@ -66,11 +66,26 @@ export class RegisterComponent {
     // target.childNodes.item(0).back
   }
 
-  onSubmit($event) {
-    this._MasterService.register($event.target).then(resp=>{
+  onSubmit(form:NgForm) {
+    console.log(form.value);
+
+    this._MasterService.register({
+      nombre:this.register.nombre, 
+      apellido:this.register.apellido, 
+      identificacion:this.register.identificacion, 
+      empresa_nombre:this.register.empresa_nombre, 
+      empresa_dir:this.register.empresa_dir, 
+      empresa_ciudad:this.register.empresa_cuidad, 
+      empresa_provincia:this.register.empresa_privincia, 
+      empresa_pais:this.register.empresa_pais, 
+      password:this.register.password, 
+      confirm_password:this.register.confirm_password, 
+      email: this.register.email
+    }).subscribe(
+      resp=>{
       this.error = "";
       this.success = "Registro exitoso"
-    }).catch(err=>{
+    }, err=>{
       this.error = "error";
       this.success = ""
     })

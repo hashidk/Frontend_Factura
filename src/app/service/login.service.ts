@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class MasterService {
     public url:string;
+    public headers=new HttpHeaders().set('Content-Type','application/json');
     constructor(
         private _http:HttpClient,
     ){
@@ -18,31 +19,34 @@ export class MasterService {
     }
     login(credentias:any):Observable<any>{
         let params=JSON.stringify(credentias);
-        let headers=new HttpHeaders().set('Content-Type','application/json');
-        return this._http.post(this.url+'login',params,{headers:headers, withCredentials: true});
+        return this._http.post(this.url+'login',params,{headers:this.headers, withCredentials: true});
     }
 
-    register(form:any){
-        return new Promise(function (resolve, reject) {
-            var request = new XMLHttpRequest();
-            request.onreadystatechange=function(){
-                if(request.readyState==4){
-                    if(request.status==200){
-                        resolve(JSON.parse(request.response));
-                    }else{
-                        reject(request.response);
-                    }
-                }
-            }
-            request.open("POST", this.url+'register');
-            request.send(new FormData(form));
-        })
+    // register(form:any){
+    //     return new Promise(function (resolve, reject) {
+    //         var request = new XMLHttpRequest();
+    //         request.onreadystatechange=function(){
+    //             if(request.readyState==4){
+    //                 if(request.status==200){
+    //                     resolve(JSON.parse(request.response));
+    //                 }else{
+    //                     reject(request.response);
+    //                 }
+    //             }
+    //         }
+    //         request.open("POST", this.url+'register');
+    //         request.send(new FormData(form));
+    //     })
+    // }
+
+    register(data):Observable<any>{
+        let params=JSON.stringify(data);
+        return this._http.post(this.url+'register',params,{headers:this.headers, withCredentials: true});
     }
 
     logout():Observable<any>{
         localStorage.removeItem("rol");
         window.location.reload();
-        let headers=new HttpHeaders().set('Content-Type','application/json');
-        return this._http.post(this.url+'logout',{},{headers:headers, withCredentials: true});
+        return this._http.post(this.url+'logout',{},{headers:this.headers, withCredentials: true});
     }
 }
