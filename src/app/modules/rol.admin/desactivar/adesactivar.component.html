@@ -1,0 +1,46 @@
+<body class="bg-gradient-primary">
+    <ng-container *ngIf="renderCancel">
+        <ui-alerta (cancel)="handleCancel($event)" [texto]="'¿Seguro que quieres activar a este empleado?'"></ui-alerta>
+    </ng-container>
+    <div class="container">
+        <!-- Desactivar Empleado -->
+        <div *ngIf="objR=='empleado'">
+            <h1 class="h4 text-gray-900 mb-4">Empleados desactivados</h1>
+            <ui-message [message]="success" [success]=true></ui-message>
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th style="width: 22%">Identificación</th>
+                        <th style="width: 22%">Nombre</th>
+                        <th style="width: 22%">Apellido</th>
+                        <th style="width: 22%">Correo</th>
+                        <th style="width: 10%"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="empleados.length!==0">
+                        <tr *ngFor="let empleado of empleados">
+                            <td>{{empleado._id}}</td>
+                            <td>{{empleado.nombre}} </td>
+                            <td>{{empleado.apellido}}</td>
+                            <td>{{empleado.usuario.email}}</td>
+                            <td style="white-space: nowrap">
+                                <a class="btn btn-danger" (click)="activar(empleado._id)">
+                                    Activar
+                                </a>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="empleados.length===0">
+                        <tr>
+                            <td colspan="100%">No existen registros aún.</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</body>

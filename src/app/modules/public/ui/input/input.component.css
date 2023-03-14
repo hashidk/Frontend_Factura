@@ -1,0 +1,15 @@
+.no100{
+    width: calc(50% - 10px);
+}
+
+.si100{
+    width: calc(100% - 20px);
+}
+
+.img svg {
+    fill: white;
+}
+
+.in50 {
+    right: 0px;
+}

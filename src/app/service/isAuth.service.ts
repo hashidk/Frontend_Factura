@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { EmpleadoB } from "../models/empleado";
 
+@Injectable()
 export class isAuthService {
     private subject = new Subject<any>();
 

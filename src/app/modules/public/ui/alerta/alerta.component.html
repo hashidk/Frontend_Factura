@@ -1,0 +1,7 @@
+<div class="alerta">
+    <div>
+        <h6 *ngIf="texto!==''">{{texto}}</h6>
+        <button id="focus" (click)="onCancel()">Regresar</button>
+        <button (click)="onAccept()">Continuar</button>
+    </div>
+</div>

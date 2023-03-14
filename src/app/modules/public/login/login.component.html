@@ -1,0 +1,61 @@
+<body class="bg-gradient-primary">
+    <div class="container" style="display: flex; align-items: center; justify-content: center; height: 80vh;">
+
+        <div class="contenedorForm">
+            <div>
+
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Ingresar al Sistema de Facturación</h1>
+                </div>
+
+                <ui-message [message]="error" [success]=false></ui-message>
+                <form class="user" #f="ngForm" (ngSubmit)="onSubmit(f)" id="form1" class="form">
+                    <div class="form-group">
+                        <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="login.nickname"
+                            required pattern="[0-9a-z]{10,}" class="inputForm input100"
+                            placeholder="Usuario" />
+                        </div>
+                    <p *ngIf="nickname.touched && !nickname.valid">
+                        * El usuario es obligatorio y debe ser de 10 dígitos
+                    </p>
+
+                    <div class="form-group">
+                        <input type="password" name="password" #password="ngModel"
+                            [(ngModel)]="login.password" required class="inputForm input100"
+                            placeholder="Contraseña" />
+                        </div>
+                    <p *ngIf="password.touched && !password.valid">
+                        * La contraseña es obligatoria
+                    </p>
+                    <div class="form-group">
+                        <select class="inputForm input100" type="text" name="rol" #rol="ngModel"
+                            [(ngModel)]="login.rol" required pattern="(empleado|cliente|administrador)">
+                            <option value="" disabled selected>Elige una opción &dtrif; </option>
+                            <option value="cliente">Cliente</option>
+                            <option value="empleado">Empleado</option>
+                            <option value="administrador">Administrador</option>
+                        </select>
+                    </div>
+                    <p *ngIf="rol.touched && !rol.valid">
+                        * El rol es obligatorio
+                    </p>
+
+
+                    <br>
+
+                    <input type="submit" name="Ingresar" value="Ingresar" [disabled]="!f.form.valid"
+                        class="submit">
+                    <!-- [routerLink]="'/empleado'"> -->
+                </form>
+                <div class="text-center">
+                    <a [routerLink]="'/register'" class="small">Registrarse</a>
+                </div>
+            </div>
+            <div class="imagen">
+                <img class="imgForm" src="../../../../assets/imgs/factura-electronica.svg" alt="">
+            </div>
+        </div>
+
+    </div>
+
+</body>

@@ -1,0 +1,63 @@
+<body class="bg-gradient-primary">
+    <div class="container">
+
+        <!-- Leer Empleado -->
+        <div *ngIf="objR=='empleado'">
+            <h1 class="h4 text-gray-900 mb-4">Empleados</h1>
+
+            <table datatable class="tabla">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">Identificación</th>
+                        <th style="width: 25%">Nombre</th>
+                        <th style="width: 25%">Apellido</th>
+                        <th style="width: 25%">Correo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="empleados.length!==0">
+                        <tr *ngFor="let empleado of empleados">
+                            <td>{{empleado._id}}</td>
+                            <td>{{empleado.nombre}} </td>
+                            <td>{{empleado.apellido}}</td>
+                            <td>{{empleado.usuario.email}}</td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="empleados.length===0">
+                        <tr>
+                            <td colspan="100%">No existen registros aún.</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+        <!-- Leer banco -->
+        <div *ngIf="objR=='producto'">
+            <h1 class="h4 text-gray-900 mb-4">Productos</h1>
+
+            <table datatable class="tabla">
+                <thead>
+                    <tr>
+                        <th style="width: 33%">Id</th>
+                        <th style="width: 33%">Descripción</th>
+                        <th style="width: 33%">Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="productos.length!==0">
+                        <tr *ngFor="let producto of productos">
+                            <td> {{producto._id}}</td>
+                            <td>{{producto.descripcion}} </td>
+                            <td>{{producto.precio}} </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="productos.length===0">
+                        <tr>
+                            <td colspan="100%">No existen registros aún.</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>

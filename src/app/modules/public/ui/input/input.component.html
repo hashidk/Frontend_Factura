@@ -1,0 +1,11 @@
+<div class="inputinfo" [class]="width===100 ? 'si100' : 'no100'">
+    <div [class]="width===50 ? 'in50': ''">
+        <div 
+            class="info"  
+            [id]="texto"
+        >
+        <img class="img" src="../../../../../assets/imgs/info.svg" alt="info">
+        </div>
+    </div>
+    <ng-content></ng-content>
+</div>

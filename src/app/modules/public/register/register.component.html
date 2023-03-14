@@ -1,0 +1,144 @@
+<body class="bg-gradient-primary">
+    <div class="container" style="display: flex; align-items: center; justify-content: center; height: 80vh;">
+        
+        <div class="contenedorForm">
+            <div>
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Registre su Empresa</h1>
+                </div>
+
+                <ui-message [message]="error" [success]=false></ui-message>
+                <ui-message [message]="success" [success]=true></ui-message>
+                <div>
+                    <form class="user" #formCli="ngForm" (submit)="onSubmit(formCli)" class="form">
+                        <div class="pasos"  style="width: 100%;">
+                            <div style="width: 100%;">
+                                <button class="boton" *ngFor="let paso of pasos" [disabled]="paso.paso>pasoActual"
+                                (click)="changePaso($event, paso.paso)" [value]="paso.paso" style="width: calc(25%); background-color: transparent; border: none;">
+                                    <div>
+                                        <div class="numero" [id]="paso.paso===pasoActual.valueOf()  ? 'activeButton' : ''">
+                                            <h4>{{paso.paso}}</h4>
+                                        </div>
+                                        <p style=" background-color: transparent; font-size: 0.7rem;">{{paso.descripcion}}</p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <ng-container class="form-group" *ngIf="pasoActual===1">
+                            <label for=""></label>
+                            <select class="inputForm input100" type="text" name="tipo" #tipo="ngModel"
+                                [(ngModel)]="tipoEmp.tipo" [value]="''" required pattern="(emprendedor|pymes|empresa)">
+                                <option value="" disabled selected>Elige una opción &dtrif; </option>
+                                <option value="emprendedor">Emprendedor</option>
+                                <option value="pymes">PYMES</option>
+                                <option value="empresa">Empresa</option>
+                            </select>
+                        </ng-container>
+                        <ng-container *ngIf="pasoActual===2">
+                            <input type="text" name="id" #id="ngModel" [(ngModel)]="register.identificacion" required
+                                pattern="[0-9]{10,10}" class="inputForm input100"
+                                placeholder="Identificación" />
+                            <p *ngIf="id.touched && !id.valid">
+                                * La identificación es obligatoria, de 10 dígitos
+                            </p>
+
+                            <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="register.nombre"
+                                required pattern="[a-zA-Z]+" class="inputForm input100"
+                                placeholder="Nombre" />
+                            <p *ngIf="nombre.touched && !nombre.valid">
+                                * Su nombre es obligatorio
+                            </p>
+                            <input type="text" name="apellido" #apellido="ngModel"
+                                [(ngModel)]="register.apellido" required pattern="[a-zA-Z]+"
+                                class="inputForm input100" placeholder="Apellidos" />
+                            <p *ngIf="apellido.touched && !apellido.valid">
+                                * Su apellido es obligatorio
+                            </p>
+                        </ng-container>
+
+                        <ng-container *ngIf="pasoActual===3">
+                            <input type="text" name="empresa_nombre" #empresa_nombre="ngModel" [(ngModel)]="register.empresa_nombre"
+                                 class="inputForm input100"
+                                placeholder="Nombre de su empresa" />
+                            <p *ngIf="empresa_nombre.touched && !empresa_nombre.valid">
+                                * El nombre de su empresa es obligatorio
+                            </p>
+                            <input type="text" name="empresa_dir" #empresa_dir="ngModel"
+                                [(ngModel)]="register.empresa_dir" 
+                                class="inputForm input100" placeholder="La dirección física" />
+                            <p *ngIf="empresa_dir.touched && !empresa_dir.valid">
+                                * La dirección física de su Empresa es obligatorio
+                            </p>
+                            <input type="text" name="empresa_cuidad" #empresa_cuidad="ngModel" [(ngModel)]="register.empresa_cuidad"
+                                 class="inputForm input50"
+                                placeholder="Ciudada" />
+                            <p *ngIf="empresa_cuidad.touched && !empresa_cuidad.valid">
+                                * La cuidad en la que se encuentra su empresa es obligatorio
+                            </p>
+                            <input type="text" name="empresa_privincia" #empresa_privincia="ngModel"
+                                [(ngModel)]="register.empresa_privincia" 
+                                class="inputForm input50" placeholder="Provincia" />
+                            <p *ngIf="empresa_privincia.touched && !empresa_privincia.valid">
+                                * La Provincia en la que se encuentra su empresa es obligatorio
+                            </p>
+                            <input type="text" name="empresa_pais" #empresa_pais="ngModel" [(ngModel)]="register.empresa_pais"
+                                 class="inputForm input100"
+                                placeholder="País" />
+                            <p *ngIf="empresa_pais.touched && !empresa_pais.valid">
+                                * El País en el que se encuentra su empresa es obligatorio
+                            </p>
+                        </ng-container>
+
+                        <ng-container *ngIf="pasoActual===4">
+                            <input type="email" name="email" #email="ngModel"
+                            [(ngModel)]="register.email" required
+                            class="inputForm input100" placeholder="Su correo electrónico" />
+                            <p *ngIf="email.touched && !email.valid">
+                                * El correo electrónico es obligatoria.
+                            </p>
+                            <input type="password" name="password" #password="ngModel"
+                            [(ngModel)]="register.password" required pattern="[a-zA-Z0-9]{8,}"
+                            class="inputForm input100" placeholder="Su contraseña" />
+                            <p *ngIf="password.touched && !password.valid">
+                                * La contraseña es obligatoria, mínimo 8 carácteres.
+                            </p>
+                            <input type="password" name="confirm_password" #confirm_password="ngModel"
+                            [(ngModel)]="register.confirm_password" required pattern="[a-zA-Z0-9]{8,}"
+                            class="inputForm input100" placeholder="Vuelva a ingresar su contraseña" />
+                            <p *ngIf="confirm_password.touched && !confirm_password.valid">
+                                * La contraseña es obligatoria, mínimo 8 carácteres.
+                            </p>
+                            <p *ngIf="confirm_password.touched && register.password !== register.confirm_password">
+                                * Las contraseñas deben ser iguales
+                            </p>
+                            
+                            <h5 *ngIf="formCli.form.valid && confirm_password === password" class="mensaje"> 
+                                &infin; Muy bien, parece que todo se encuentra en orden, para terminar el proceso presione 
+                                en el botón de Registrarse, 
+                                en caso de que dude de que alguno de sus datos no sean 
+                                correctos, aún puede regresar para revisarlos o 
+                                cambiarlos </h5>
+                            <h5 *ngIf="!formCli.form.valid && confirm_password !== password" class="mensaje"> Recuerde revisar los campos </h5>
+                        </ng-container>
+                        
+                        
+                        <div style="display: flex; justify-content: space-between;">
+                            <button class="submit input50" (click)="retro($event)" *ngIf="pasoActual>1">Anterior paso</button>
+                            <button class="submit input50" (click)="next($event)" *ngIf="pasoActual<4" [disabled]="!formCli.form.valid">Siguiente paso</button>
+                            <div *ngIf="pasoActual===4">              
+                                <input type="submit" name="Guardar" value="Registrarse" [disabled]="!formCli.form.valid || register.password !== register.confirm_password"
+                                class="submit input50 submit-second">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <hr>
+            </div>
+            <div class="imagen">
+                <img class="imgForm" src="../../../assets/imgs/factura-electronica.svg" alt="">
+            </div>
+        </div>
+    </div>
+</body>

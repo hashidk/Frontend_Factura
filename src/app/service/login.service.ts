@@ -2,10 +2,9 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Global } from "./global";
 import { Observable } from 'rxjs';
+import { Register } from "../models";
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class MasterService {
     public url:string;
     public headers=new HttpHeaders().set('Content-Type','application/json');
@@ -39,7 +38,7 @@ export class MasterService {
     //     })
     // }
 
-    register(data):Observable<any>{
+    register(data:any):Observable<any>{
         let params=JSON.stringify(data);
         return this._http.post(this.url+'register',params,{headers:this.headers, withCredentials: true});
     }

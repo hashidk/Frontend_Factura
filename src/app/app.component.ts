@@ -1,12 +1,21 @@
-import { Component } from '@angular/core';
-import { EmpleadoB } from './models/empleado';
-import { Config, Menu } from './ui/menu-acordeon/types';
+import { Component, OnInit } from '@angular/core';
+import { comprobarCookie } from './utils';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'Banca Web'
+
+  constructor(){
+
+  }
+
+  ngOnInit(): void {
+    if(!(comprobarCookie("access_token"))){
+      localStorage.removeItem("rol")
+    }
+  }
 }

@@ -1,23 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { AdminComponent } from './admin/admin.component';
-import { EmpleadoComponent } from './empleado/empleado.component';
+import { LoginComponent } from './modules/public/login/login.component';
+import { PublicComponent } from './modules/public/public.component';
+import { RegisterComponent } from './modules/public/register/register.component';
+import { AdminComponent } from './modules/rol.admin/admin.component';
+import { ClientesComponent } from './modules/rol.cliente/clientes.component';
+import { EmpleadoComponent } from './modules/rol.empleado/empleado.component';
 
-// import { ClienteComponent } from './cliente/clientee/cliente.component'
-// import { TransferenciaInternaComponent } from './cliente/transferencia-interna/transferencia-interna.component';
-// import { ClientesComponent } from './cliente/clientes/clientes.component';
-// import { EscritorioComponent } from './cliente/escritorio/escritorio.component';
-import { ClientesComponent } from './clientes/clientes.component';
-import { RegisterComponent } from './register/register.component';
-import { PublicComponent } from './public/public.component';
-import { AuthGuard } from './Guards/auth.guard';
+const adminModule = () => import('./modules/rol.admin/rol.admin.module').then(x => x.RolAdminModule);
+const empleadoModule = () => import('./modules/rol.empleado/rol.empleado.module').then(x => x.RolEmpleadoModule);
+const clienteModule = () => import('./modules/rol.cliente/rol.cliente.module').then(x => x.RolClienteModule);
+const inicioModule = () => import('./modules/public/public.module').then(x => x.PublicModule);
 
-
-const adminModule = () => import('./admin/admin.module').then(x => x.AdminModule);
-const empleadoModule = () => import('./empleado/empleado.module').then(x => x.EmpleadoModule);
-const clienteModule = () => import('./clientes/clientes.module').then(x => x.ClientesModule);
-const inicioModule = () => import('./public/public.module').then(x => x.PublicModule);
 
 
 const routes: Routes = [

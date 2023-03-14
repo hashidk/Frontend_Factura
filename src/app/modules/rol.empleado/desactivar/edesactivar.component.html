@@ -1,0 +1,51 @@
+<body class="bg-gradient-primary">
+    <ng-container *ngIf="renderCancel">
+        <ui-alerta (cancel)="handleCancel($event)" [texto]="'¿Seguro que quieres activar a este cliente?'"></ui-alerta>
+    </ng-container>
+    <div class="container">
+
+        <!-- Desactivar Cliente -->
+        <div *ngIf="objR=='cliente'">
+            <h1 class="h4 text-gray-900 mb-4">Clientes inactivos</h1>
+            <ui-message [message]="success" [success]=true></ui-message>
+            <table class="tabla">
+                <thead>
+                    <tr>
+                        <th style="width: 18%">Identificación</th>
+                        <th style="width: 18%">Nombre y Apellido</th>
+                        <th style="width: 18%">Provincia</th>
+                        <th style="width: 18%">Dirección</th>
+                        <th style="width: 18%">Correo</th>
+                        <th style="width: 10%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngIf="clientes.length!==0">
+                        <tr *ngFor="let cliente of clientes">
+                            <td> {{cliente._id}}</td>
+                            <td>{{cliente.nombre}} {{cliente.apellido}}</td>
+                            <td>{{cliente.provincia}}, {{cliente.ciudad}}</td>
+                            <td>{{cliente.dir}}</td>
+                            <td>{{cliente.usuario.email}}</td>
+    
+                            <td style="white-space: nowrap">
+                                <a class="btn btn-success" (click)="activar(cliente._id)">
+                                    Activar
+                                </a>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="clientes.length===0">
+                        <tr>
+                            <td colspan="100%">No existen registros aún.</td>
+                        </tr>
+                    </ng-container>
+
+                </tbody>
+            </table>
+
+
+        </div>
+
+    </div>
+</body>

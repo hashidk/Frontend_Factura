@@ -1,18 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
-
-/*
-body {
-    background: linear-gradient(to right, #6492e6, #28f6bf) !important;
-    margin: 0;
-    padding: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    height: 100vh;
-}
-
-*/
-* {
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
+*:not(i) {
     padding: 0;
     margin: 0;
+    font-family: 'Comfortaa', cursive, 'Roboto' !important;
 }
 
 body {
@@ -29,8 +19,6 @@ body {
 }
 
 h2 {
-    text-decoration: underline;
-    text-decoration-color: red;
     font-size: 2rem !important;
     text-align: center;
 }
@@ -233,3 +221,88 @@ h2 {
 .invoice tbody tr:hover, .tabla tbody tr:hover {
     background-color: #36367c;
 }
+
+.informacion {
+    color: #2c2c6b;
+}
+
+.informacion h3{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.informacion > div > div > div {
+    font-size: 1.2rem;
+    color: gray;
+}
+
+.informacion > div > div {
+    display: flex;
+    gap: 10px;
+}
+
+.informacion > div > div > div:first-child {
+    font-weight: bold;
+    color: #2c2c6b;
+    text-align: end;
+}
+
+#botonhover{
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    font-size: 1.3rem;
+}
+
+#botonhover:hover{
+    background-color: #00add9;
+}
+
+.inputinfo {
+    position: relative;
+    display: inherit;
+}
+
+.inputinfo > div {
+    position: absolute;
+    right: -30px;
+}
+
+.info {
+    position: relative;
+    width: 25px;
+    margin-top: 12px;
+  }
+  
+  .info:hover::after {
+    visibility: visible;
+  }
+  
+  .info img {
+    width: 25px;
+    height: 25px;
+  }
+  
+  .info::after {
+    content: attr(id);
+    position: absolute;
+    background-color: #3a3a86;
+    color: white;
+    line-height: 0.9rem;
+    width: 250px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    top: 0.5rem;
+    left: 35px;
+    z-index: 1000;
+    visibility: hidden;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+
+  .pdfsvg {
+    width: 30px;
+    height: 30px;
+    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(328deg) brightness(119%) contrast(119%);
+  }
