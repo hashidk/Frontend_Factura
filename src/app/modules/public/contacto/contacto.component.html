@@ -1,34 +1,59 @@
-<div class="container contacto">
-    <h2>Solicitar más información</h2>
-    <p>Déjanos tus datos y reolveremos tus dudas</p>
-    <form class="form">
-        <input type="text" class="inputForm input50" placeholder="Nombres Completos*">
-        <input type="email" class="inputForm input50" placeholder="Correo Electrónico*">
-        <input type="tel" class="inputForm input50" placeholder="Número de teléfono*">
-        <input type="text" class="inputForm input50" placeholder="Empresa*">
-        <div>
-            <input type="checkbox" class="" id="checkbox" name="checkbox">
-            <label for="checkbox">Autorizo el registro de mis datos para obtener más información.</label>
-        </div>
-        <input type="submit" class="submit" value="Enviar">
-    </form>
+<div  style="height: 80vh; display: flex; align-items: center; justify-content: center;">
+    <div class="container contacto">
+        <h2>Solicitar más información</h2>
+        <p>Déjanos tus datos y reolveremos tus dudas</p>
+        <form class="form"  #f="ngForm" (ngSubmit)="onSubmit(f)" id="form1" >
+            <input type="text" class="inputForm input50" required placeholder="Nombres Completos*"
+                name="nombres" #nombres="ngModel" [(ngModel)]="contacto.nombres"
+            >
+            <p style="color: white;" *ngIf="nombres.touched && !nombres.valid">
+                * El usuario es obligatorio.
+            </p>
+            <input type="email" class="inputForm input50" required placeholder="Correo Electrónico*"
+            name="correo" #correo="ngModel" [(ngModel)]="contacto.correo"
+            >
+            <p style="color: white;" *ngIf="correo.touched && !correo.valid">
+                * El usuario es obligatorio.
+            </p>
+
+            <input type="tel" class="inputForm input50" required placeholder="Número de teléfono*"
+            name="telefono" #telefono="ngModel" [(ngModel)]="contacto.telefono"
+            >
+            <p style="color: white;" *ngIf="telefono.touched && !telefono.valid">
+                * El usuario es obligatorio.
+            </p>
+            <input type="text" class="inputForm input50" required placeholder="Empresa*"
+            name="empresa" #empresa="ngModel" [(ngModel)]="contacto.empresa"
+            >
+            <p style="color: white;" *ngIf="empresa.touched && !empresa.valid">
+                * El usuario es obligatorio.
+            </p>
+            <div>
+                <input type="checkbox" (change)="handleCheckbox($event)" class="" #check id="checkbox" name="checkbox">
+                <label for="checkbox">Autorizo el registro de mis datos para obtener más información.</label>
+            </div>
+            <input type="submit" class="submit" value="Enviar" [disabled]="!checkbox || !f.form.valid">
+        </form>
+    </div>
 </div>
 
-<div class="container datos">
-    <h2>Contáctanos</h2>
-    <div>
+<div style="height: 80vh; display: flex; align-items: center; justify-content: center; background-color: #f2f2f8;">
+    <div class="container datos">
+        <h2>Contáctanos</h2>
         <div>
-            <img src="../../../../assets/imgs/phone-svgrepo-com.svg" alt="">
-            <p>123-456-789</p>
+            <div>
+                <img src="../../../../assets/imgs/phone-svgrepo-com.svg" alt="">
+                <p>123-456-789</p>
+            </div>
+            <div>
+                <img src="../../../../assets/imgs/email-svgrepo-com.svg" alt="">
+                <p>info@itsystems.ec</p>
+            </div>
+            <div>
+                <img src="../../../../assets/imgs/locationoutline-svgrepo-com.svg" alt="">
+                <p>jr. Leonardo Arrieta 1119, Cercado de Cuenca</p>
+            </div>
         </div>
-        <div>
-            <img src="../../../../assets/imgs/email-svgrepo-com.svg" alt="">
-            <p>info@itsystems.ec</p>
-        </div>
-        <div>
-            <img src="../../../../assets/imgs/locationoutline-svgrepo-com.svg" alt="">
-            <p>jr. Leonardo Arrieta 1119, Cercado de Cuenca</p>
-        </div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7914187547162!2d-78.49115155021943!3d-0.21040219984573263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59a107bb8a279%3A0x61ea7f5dbe8d08cc!2sFacultad%20de%20Sistema%20EPN%2C%20Andaluc%C3%ADa%2C%20Quito%20170143!5e0!3m2!1ses!2sec!4v1678239294153!5m2!1ses!2sec" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="mapa"></iframe>
     </div>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7914187547162!2d-78.49115155021943!3d-0.21040219984573263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91d59a107bb8a279%3A0x61ea7f5dbe8d08cc!2sFacultad%20de%20Sistema%20EPN%2C%20Andaluc%C3%ADa%2C%20Quito%20170143!5e0!3m2!1ses!2sec!4v1678239294153!5m2!1ses!2sec" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="mapa"></iframe>
 </div>

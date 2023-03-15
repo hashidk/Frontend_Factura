@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PublicRoutingModule } from './public-routing.module';
 import { AcordeonItemComponent } from './ui/acordeon-item/acordeon-item.component';
+import { RequisitosComponent } from './requisitos/requisitos.component';
 
 
 
@@ -35,7 +36,8 @@ import { AcordeonItemComponent } from './ui/acordeon-item/acordeon-item.componen
     MessageComponent,
     LoginComponent,
     RegisterComponent,
-    AcordeonItemComponent
+    AcordeonItemComponent,
+    RequisitosComponent
   ],
   imports: [
     CommonModule,

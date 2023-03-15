@@ -1,0 +1,52 @@
+.content-req {
+    background-color: #2c2c6b;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.requisitos {
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.requisitos > p {
+    color: rgb(175, 175, 175);
+    font-size: 1rem;
+    text-align: center;
+}
+
+.requisitos > div {
+    display: flex;
+    text-align: center;
+    flex-wrap: wrap;
+}
+.requisitos > div > div {
+    flex-basis: 25%;
+}
+
+@media (max-width:760px) {
+    .requisitos > div > div {
+        flex-basis: 50%;
+    }
+    .content-req {
+        height: 100vh;
+    }
+}
+
+.requisitos > div > div  img{
+    height: 100px;
+    width: 100px;
+}
+
+.requisitos > div > div h4 {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.requisitos > div > div p {
+    color: rgb(175, 175, 175);
+    font-size: .9rem;
+}

@@ -6,6 +6,7 @@ header {
     align-items: center;
     justify-content: space-around;
     height: 10vh;
+    box-shadow: #4a4a77 0px 20px 30px -10px;
 }
 
 header h1 {

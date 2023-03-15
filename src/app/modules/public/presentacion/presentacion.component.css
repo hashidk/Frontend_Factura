@@ -10,7 +10,7 @@
 }
 
 .present .contenido {
-    flex-basis: 40%;
+    flex-basis: 50%;
     color: #2c2c6a;
     width: 80%;
     margin: 0 auto;
@@ -31,12 +31,13 @@
 }
 
 .present .slider {
-    flex-basis: 60%;
-    height: 80vh;
+    flex-basis: 50%;
+    height: auto;
     overflow-y: hidden;
+    box-shadow: #2c2c6b 0px 20px 30px -10px;
 }
 
-.informacion {
+.informacionin {
     width: 80%;
     min-width: 500px;
     margin: 0 auto;
@@ -45,25 +46,38 @@
     justify-content: center;
     align-items: center;
     flex-direction: row-reverse;
-    color: #2c2c6a;
+    color: white;
+    gap: 10px;
 }
 
-.informacion h3, h4 {
+.informacionin h3, h4 {
     font-weight: bold;
     font-size: 1.25rem;
     text-transform: capitalize;
+    margin-top: 15px;
 }
 
-.informacion p {
-    font-size: 1rem;
+.informacionin p {
+    font-size: 0.9rem;
+    color: #afafaf;
 }
 
-.informacion .img {
+.informacionin  ul  {
+    list-style: square;
+    margin-left: 25px;
+    font-size: 0.9rem;
+}
+
+.informacionin  ul p {
+    font-size: 0.9rem;
+}
+
+.informacionin .img {
     width: 100%;
     min-width: 200px;
 }
 
-.informacion .img img {
+.informacionin .img img {
     width: 100%;
     height: auto;
 }

@@ -2,12 +2,16 @@
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
+    -webkit-text-stroke: 2px black !important;
+    font-weight: bold !important;
 }
 
 .pasos > div h5 {
     font-size: 1rem;
     font-weight: bold;
 }
+
+/* .pasos > div h5 */
 
 .red {
     background-color: #f85050;
