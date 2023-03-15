@@ -68,34 +68,34 @@
                                     placeholder="Identificación" readonly />
                                 <br>
                                 <input type="text" name="nombre" #nombre="ngModel" [(ngModel)]="cliente.nombre"
-                                    required pattern="[a-zA-Z]+" class="inputForm input50"
+                                    required pattern="[a-zA-Z ]+" class="inputForm input50"
                                     placeholder="Nombres" />
                                 <p *ngIf="nombre.touched && !nombre.valid">
                                     * Nombre es obligatorio
                                 </p>
                                 <input type="text" name="apellido" #apellido="ngModel"
-                                    [(ngModel)]="cliente.apellido" required pattern="[a-zA-Z]+"
+                                    [(ngModel)]="cliente.apellido" required pattern="[a-zA-Z ]+"
                                     class="inputForm input50" placeholder="Apellidos" />
                                 <p *ngIf="apellido.touched && !apellido.valid">
                                     * Apellido es obligatorio
                                 </p>
 
                                 <input type="text" name="provincia" #provincia="ngModel"
-                                    [(ngModel)]="cliente.provincia" required pattern="[a-zA-Z]+"
+                                    [(ngModel)]="cliente.provincia" required pattern="[a-zA-Z ]+"
                                     class="inputForm input50" placeholder="Provincia" />
                                 <p *ngIf="provincia.touched && !provincia.valid">
                                     * Provincia es obligatorio
                                 </p>
 
                                 <input type="text" name="ciudad" #ciudad="ngModel" [(ngModel)]="cliente.ciudad"
-                                    required pattern="[a-zA-Z]+" class="inputForm input50"
+                                    required pattern="[a-zA-Z ]+" class="inputForm input50"
                                     placeholder="Ciudad" />
                                 <p *ngIf="ciudad.touched && !ciudad.valid">
                                     * Ciudad es obligatorio
                                 </p>
 
                                 <input type="text" name="dir" #dir="ngModel" [(ngModel)]="cliente.dir"
-                                    required pattern="[a-zA-Z]+" class="inputForm input100"
+                                    required pattern="[a-zA-Z ]+" class="inputForm input100"
                                     placeholder="Dirección" />
                                 <p *ngIf="dir.touched && !dir.valid">
                                     * La dirección es obligatoria

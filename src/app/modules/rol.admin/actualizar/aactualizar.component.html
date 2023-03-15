@@ -61,13 +61,13 @@
                                         readonly />
  
                                     <input type="text" name="nombre" #nombre="ngModel"
-                                        [(ngModel)]="empleado.nombre" required pattern="[a-zA-Z]+"
+                                        [(ngModel)]="empleado.nombre" required pattern="[a-zA-Z ]+"
                                         class="inputForm input50" placeholder="Nombres" />
                                     <p *ngIf="nombre.touched && !nombre.valid">
                                         * Nombre es obligatorio
                                     </p>
                                     <input type="text" name="apellido" #apellido="ngModel"
-                                        [(ngModel)]="empleado.apellido" required pattern="[a-zA-Z]+"
+                                        [(ngModel)]="empleado.apellido" required pattern="[a-zA-Z ]+"
                                         class="inputForm input50" placeholder="Apellidos" />
                                     <p *ngIf="apellido.touched && !apellido.valid">
                                         * Apellido es obligatorio
