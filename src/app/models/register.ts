@@ -6,7 +6,7 @@ export class Register {
         public identificacion: string,
         public empresa_nombre: string,
         public empresa_dir: string,
-        public empresa_cuidad: string,
+        public empresa_ciudad: string,
         public empresa_privincia: string,
         public empresa_pais: string,
         public firm: string,
@@ -23,7 +23,7 @@ export class Register {
         this.identificacion= ""
         this.empresa_nombre= ""
         this.empresa_dir= ""
-        this.empresa_cuidad= ""
+        this.empresa_ciudad= ""
         this.empresa_privincia= ""
         this.empresa_pais= ""
         this.firm= ""

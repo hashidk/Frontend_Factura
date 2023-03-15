@@ -7,13 +7,15 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmpleadoService } from '../service/empleado.service';
 import { ClienteF, FacturaF, ProductoF } from '../../../models';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 type Pedido ={producto:ProductoF, cantidad:number};
 
 @Component({
   selector: 'app-ecrear',
   templateUrl: './ecrear.component.html',
   styleUrls: ['./ecrear.component.css'],
-  providers: [EmpleadoService]
+  providers: [EmpleadoService],
+  animations: [fadeIn, fadeOut],
 })
 
 
@@ -43,7 +45,7 @@ export class EcrearComponent {
   ) {
     this.objR = ""
     this.cliente = new ClienteF("", "", "", "", "", "", "",{email: "", nickname: ""}, false, "")
-    this.factura = new FacturaF("", "", "", "", "", 0, [], "", "")
+    this.factura = new FacturaF("", "", "", "", "", 0, [], "", "", true, false)
 
     this._EmpleadoService.getProductos().subscribe(resp=>{
       this.productos = resp.data;
@@ -63,6 +65,10 @@ export class EcrearComponent {
   }
   
   ngOnInit(): void {
+  }
+
+  setBorrador(value:boolean){
+    this.factura.borrador = value;
   }
 
   onSubmit(form: NgForm) {
@@ -87,7 +93,8 @@ export class EcrearComponent {
       if (this.productosSelected.length>0) {
         this._EmpleadoService.addFactura({
           clienteid: form.value.id,
-          productos: this.productosSelected.map(ele => {return {_id: ele.producto._id, cantidad: ele.cantidad}})
+          productos: this.productosSelected.map(ele => {return {_id: ele.producto._id, cantidad: ele.cantidad}}),
+          borrador: this.factura.borrador
         }).subscribe(resp=>{
           this.error = "";
           this.success = "Factura creada"

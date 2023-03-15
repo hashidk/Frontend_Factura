@@ -6,13 +6,15 @@ import { Router } from '@angular/router';
 import { AdminService } from '../service/admin.service';
 import { EmpleadoF } from '../../../models/empleadoF';
 import { ProductoF } from '../../../models/productoF';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 
 
 @Component({
   selector: 'app-acrear',
   templateUrl: './acrear.component.html',
   styleUrls: ['./acrear.component.css'],
-  providers: [AdminService]
+  providers: [AdminService],
+  animations: [fadeIn, fadeOut],
 })
 
 export class AcrearComponent {

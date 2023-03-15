@@ -1,4 +1,4 @@
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary"  @fadeIn @fadeOut>
     <div class="container">
 
         <!-- Leer Empleado -->
@@ -48,7 +48,7 @@
                         <tr *ngFor="let producto of productos">
                             <td> {{producto._id}}</td>
                             <td>{{producto.descripcion}} </td>
-                            <td>{{producto.precio}} </td>
+                            <td>{{producto.precio}}$</td>
                         </tr>
                     </ng-container>
                     <ng-container *ngIf="productos.length===0">

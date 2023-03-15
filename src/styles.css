@@ -224,15 +224,19 @@ h2 {
 
 .informacion {
     color: #2c2c6b;
+    display: flex;
+    column-gap: 100px;
+    flex-wrap: wrap;
+    overflow-y: hidden;
 }
 
 .informacion h3{
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 .informacion > div > div > div {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: gray;
 }
 
@@ -245,6 +249,19 @@ h2 {
     font-weight: bold;
     color: #2c2c6b;
     text-align: end;
+}
+
+@media (max-width: 700px) {
+    
+    .informacion h3{
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .informacion > div > div > div {
+        font-size: 0.8rem;
+        color: gray;
+    }
 }
 
 #botonhover{
@@ -306,3 +323,94 @@ h2 {
     height: 30px;
     filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(328deg) brightness(119%) contrast(119%);
   }
+
+  .aside-style{
+    min-width: 200px !important;
+  }
+
+.aside-style > a {
+    text-align: center;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* .accordion-style {
+} */
+
+.accordion-style button {
+    width: 90%;
+    margin: 0 auto;
+    cursor: pointer;
+    background-color: transparent; 
+    color: white; 
+    font-size: 1rem !important;
+    border: none; 
+    text-align: left !important;
+    padding: 5px 0;
+}
+
+.accordion-style > div > div{
+    background-color: white;
+    color: gray;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.accordion-style > div > div a {
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 5px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease-in;
+}
+
+.accordion-style > div > div a:hover {
+    color: gray;
+    background-color: white;
+}
+
+.cards-resumen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.cards-resumen > div {
+    height: 150px;
+    width: calc(50% - 5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.cards-resumen > div:nth-child(1){background-color: #18a2b8;}
+.cards-resumen > div:nth-child(2){background-color: #6f42c1;}
+.cards-resumen > div:nth-child(3){background-color: #1cb09a;}
+.cards-resumen > div:nth-child(4){background-color: #dc3645;}
+.cards-resumen > div:nth-child(5){background-color: #f20872;}
+.cards-resumen > div:nth-child(6){background-color: #f27439;}
+
+.cards-resumen > div p {
+    font-size: 2rem;
+    margin: 0;
+    font-weight: bold;
+    color: white;
+}
+
+.cards-resumen > div h3 {
+    font-size: 1rem;
+    margin: 0;
+    color: white;
+}
+
+.cards-resumen > div img {
+    width: 50px;
+    height: 50px;
+}

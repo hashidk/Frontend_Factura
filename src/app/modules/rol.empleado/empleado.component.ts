@@ -33,7 +33,7 @@ export class EmpleadoComponent {
     this.empleado = new EmpleadoF("", "", "", "", {email: "", nickname: ""}, "", false)
     this._EmpleadoService.getInfo().subscribe(resp=>{
       this.empleado = resp.data;
-      // this.resumen = resp.resumen;
+      this.resumen = resp.resumen;
     },err=>{
       this._router.navigate(['/login']);
     })

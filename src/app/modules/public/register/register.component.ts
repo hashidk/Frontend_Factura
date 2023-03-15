@@ -20,7 +20,7 @@ export class RegisterComponent {
   public error: string;
   public success: string;
   public clientes: any;
-  public tipoEmp: {tipo:String};
+  public tipoEmp:string;
   public pasos:{paso:number, descripcion:String}[];
   public pasoActual:number = 1;
 
@@ -29,11 +29,11 @@ export class RegisterComponent {
     this.register = new Register('', '', '', "", "", "", "", "", "", "", "", "", "", "")
     this.error = ""
     this.success = ""
-    this.tipoEmp = {tipo: ""}
+    this.tipoEmp = ""
     this.pasos = [
       {
         paso: 1,
-        descripcion: "Seleccionar el tipo"
+        descripcion: "Seleccionar el tipo de plan"
       },{
         paso: 2,
         descripcion: "Datos personales"
@@ -42,7 +42,7 @@ export class RegisterComponent {
         descripcion: "Datos de su empresa"
       },{
         paso: 4,
-        descripcion: "Registrarse"
+        descripcion: "Credenciales y Registro"
       }
     ]
   }
@@ -59,6 +59,12 @@ export class RegisterComponent {
 
   }
 
+  setTipo($event:Event){
+    $event.preventDefault();
+    var target = $event.target as HTMLButtonElement;
+    this.tipoEmp = target.value;
+  }
+
   changePaso($event:Event, paso:number){
     $event.preventDefault();
     this.pasoActual = paso;
@@ -68,17 +74,18 @@ export class RegisterComponent {
     console.log(form.value);
 
     this._MasterService.register({
-      nombre:this.register.nombre, 
-      apellido:this.register.apellido, 
-      identificacion:this.register.identificacion, 
-      empresa_nombre:this.register.empresa_nombre, 
-      empresa_dir:this.register.empresa_dir, 
-      empresa_ciudad:this.register.empresa_cuidad, 
-      empresa_provincia:this.register.empresa_privincia, 
-      empresa_pais:this.register.empresa_pais, 
-      password:this.register.password, 
-      confirm_password:this.register.confirm_password, 
-      email: this.register.email
+      tipo:               this.tipoEmp,
+      nombre:             this.register.nombre, 
+      apellido:           this.register.apellido, 
+      identificacion:     this.register.identificacion, 
+      empresa_nombre:     this.register.empresa_nombre, 
+      empresa_dir:        this.register.empresa_dir, 
+      empresa_ciudad:     this.register.empresa_ciudad, 
+      empresa_provincia:  this.register.empresa_privincia, 
+      empresa_pais:       this.register.empresa_pais, 
+      password:           this.register.password, 
+      confirm_password:   this.register.confirm_password, 
+      email:              this.register.email
     }).subscribe(
       resp=>{
       this.error = "";

@@ -5,12 +5,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { EmpleadoService } from '../service/empleado.service';
 import { ClienteF } from '../../../models';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 
 
 @Component({
     selector: 'app-edesactivar',
     templateUrl: './edesactivar.component.html',
-    providers: [EmpleadoService]
+    providers: [EmpleadoService],
+    animations: [fadeIn, fadeOut],
 })
 
 export class EdesactivarComponent implements OnInit {

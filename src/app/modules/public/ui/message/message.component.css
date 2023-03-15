@@ -16,3 +16,7 @@
     color: white; 
     border-left: 2.5px solid white;
 }
+
+.success p span, .error p span {
+    font-weight: bold;
+}

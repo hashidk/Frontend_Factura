@@ -1,0 +1,15 @@
+<div class="accordion-item accordion-style">
+    <h2 class="accordion-header" id="headingOne">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <div style="display: flex; justify-content: space-between; width: 100%;">
+            <div><i class="fas fa-fw fa-folder"></i><span>{{title}} </span></div>
+            <div><i class="fa fa-chevron-down"></i></div>
+        </div>
+    </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionSidebar">
+        <div>
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

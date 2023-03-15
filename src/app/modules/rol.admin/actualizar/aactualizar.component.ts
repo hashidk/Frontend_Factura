@@ -8,12 +8,14 @@ import { MasterService } from '../../../service/login.service';
 import { AdminService } from '../service/admin.service';
 import { EmpleadoF } from '../../../models/empleadoF';
 import { ProductoF } from '../../../models/productoF';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 
 
 @Component({
     selector: 'app-aactualizar',
     templateUrl: './aactualizar.component.html',
-    providers: [MasterService, AdminService]
+    providers: [MasterService, AdminService],
+    animations: [fadeIn, fadeOut],
 })
 
 export class AactualizarComponent implements OnInit {

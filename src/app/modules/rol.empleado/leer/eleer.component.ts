@@ -7,11 +7,13 @@ import { EmpleadoService } from '../service/empleado.service';
 import { MasterService } from '../../../service/login.service';
 import { ClienteF, FacturaF } from '../../../models';
 import { Global } from '../../../service/global';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 
 @Component({
     selector: 'app-eleer',
     templateUrl: './eleer.component.html',
-    providers: [MasterService, EmpleadoService]
+    providers: [MasterService, EmpleadoService],
+    animations: [fadeIn, fadeOut],
 })
 
 export class EleerComponent implements OnInit {
@@ -40,6 +42,9 @@ export class EleerComponent implements OnInit {
 
         this._EmpleadoService.getFacturas().subscribe(resp => {
             this.facturas = resp.data;
+            this.facturas.map((ele, index) => {
+                this.facturas[index].fecha = new Date(ele.fecha).toLocaleString()
+            })            
         }, err => {
             this._router.navigate(['/login']);
         })

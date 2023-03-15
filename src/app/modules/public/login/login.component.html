@@ -10,13 +10,13 @@
 
                 <ui-message [message]="error" [success]=false></ui-message>
                 <form class="user" #f="ngForm" (ngSubmit)="onSubmit(f)" id="form1" class="form">
-                    <div class="form-group">
+                    <ui-input [texto]="'Especificar su nombre de usuario para ingresar al sistema, este debe contener al menos 10 carácteres (incluidos números) y no debe contener espacios.'" [width]="100">
                         <input type="text" name="nickname" #nickname="ngModel" [(ngModel)]="login.nickname"
-                            required pattern="[0-9a-z]{10,}" class="inputForm input100"
+                            required pattern="[0-9a-zA-Z]{10,}" class="inputForm input100"
                             placeholder="Usuario" />
-                        </div>
+                    </ui-input>
                     <p *ngIf="nickname.touched && !nickname.valid">
-                        * El usuario es obligatorio y debe ser de 10 dígitos
+                        * El usuario es obligatorio.
                     </p>
 
                     <div class="form-group">

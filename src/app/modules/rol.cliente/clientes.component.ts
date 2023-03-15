@@ -1,5 +1,6 @@
 import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 import { ClienteF, FacturaF } from '../../models';
 import { Global } from '../../service/global';
 import { isAuthService } from '../../service/isAuth.service';
@@ -11,6 +12,7 @@ import { ClienteService } from './services/cliente.services';
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.css'],
   providers: [MasterService, ClienteService, isAuthService],
+  animations: [fadeIn, fadeOut],
 })
 export class ClientesComponent implements OnInit{
   public option: number = 0;
@@ -37,6 +39,10 @@ export class ClientesComponent implements OnInit{
 
       this._ClienteService.getMisFacturas().subscribe(resp=>{
         this.facturas = resp.data;
+        this.facturas = this.facturas.filter((ele) => ele.borrador === false)
+        this.facturas.map((ele, index) => {
+          this.facturas[index].fecha = new Date(ele.fecha).toLocaleString()
+        })   
       },err=>{
         this._router.navigate(['/login']);
       })

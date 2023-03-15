@@ -10,7 +10,9 @@ export class FacturaF {
         public subtotal: number,
         public productos: Pedido[],
         public fecha: string,
-        public path: string
+        public path: string,
+        public borrador:boolean,
+        public estado:boolean
     ) {
     }
 
@@ -24,5 +26,7 @@ export class FacturaF {
         this.productos = []
         this.fecha = ""
         this.path = ""
+        this.borrador = true,
+        this.estado = false
     }
 }

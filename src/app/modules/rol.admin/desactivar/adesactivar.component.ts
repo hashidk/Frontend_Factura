@@ -4,12 +4,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdminService } from '../service/admin.service';
 import { EmpleadoF } from '../../../models/empleadoF';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 
 
 @Component({
     selector: 'app-adesactivar',
     templateUrl: './adesactivar.component.html',
-    providers: [AdminService]
+    providers: [AdminService],
+    animations: [fadeIn, fadeOut],
 })
 
 export class AdesactivarComponent implements OnInit {

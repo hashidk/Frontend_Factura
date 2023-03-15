@@ -16,6 +16,7 @@ import { MessageComponent } from './ui/message/message.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PublicRoutingModule } from './public-routing.module';
+import { AcordeonItemComponent } from './ui/acordeon-item/acordeon-item.component';
 
 
 
@@ -33,7 +34,8 @@ import { PublicRoutingModule } from './public-routing.module';
     AlertaComponent,
     MessageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AcordeonItemComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +50,8 @@ import { PublicRoutingModule } from './public-routing.module';
     AlertaComponent,
     MessageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AcordeonItemComponent
   ]
 })
 export class PublicModule { }

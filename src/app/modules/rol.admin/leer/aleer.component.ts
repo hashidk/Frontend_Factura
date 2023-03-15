@@ -8,11 +8,13 @@ import { MasterService } from '../../../service/login.service';
 import { Router } from '@angular/router';
 import { AdminService } from '../service/admin.service';
 import { EmpleadoF } from '../../../models/empleadoF';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 
 @Component({
     selector: 'app-aleer',
     templateUrl: './aleer.component.html',
     providers: [MasterService, AdminService],
+    animations: [fadeIn, fadeOut],
 })
 
 export class AleerComponent implements OnInit {

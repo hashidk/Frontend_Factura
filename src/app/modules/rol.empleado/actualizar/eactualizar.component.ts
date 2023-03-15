@@ -6,13 +6,15 @@ import { Router } from '@angular/router';
 import { MasterService } from '../../../service/login.service';
 import { EmpleadoService } from '../service/empleado.service';
 import { ClienteF, FacturaF, ProductoF } from '../../../models';
+import { fadeIn, fadeOut } from 'src/app/animations/fadeInOut';
 type Pedido ={producto:ProductoF, cantidad:number};
 
 
 @Component({
     selector: 'app-eactualizar',
     templateUrl: './eactualizar.component.html',
-    providers: [MasterService, EmpleadoService]
+    providers: [MasterService, EmpleadoService],
+    animations: [fadeIn, fadeOut],
 })
 
 export class EactualizarComponent implements OnInit {
@@ -52,7 +54,7 @@ export class EactualizarComponent implements OnInit {
         this.cancel = true;
         this.renderCancel = false
         this.cliente = new ClienteF("", "", "", "", "", "", "", {email:"", nickname: ""}, false, "")
-        this.factura = new FacturaF("", "", "", "", "", 0, [], "", "")
+        this.factura = new FacturaF("", "", "", "", "", 0, [], "", "", true, false)
         this._EmpleadoService.getClientes().subscribe(resp=>{
             this.clientes = resp.data;
             this.clientes = this.clientes.filter((ele:any) => ele.activo===true)           
@@ -62,6 +64,10 @@ export class EactualizarComponent implements OnInit {
 
         this._EmpleadoService.getFacturas().subscribe(resp=>{
             this.facturas = resp.data;
+            this.facturas = this.facturas.filter((ele) => ele.borrador === true)
+            this.facturas.map((ele, index) => {
+                this.facturas[index].fecha = new Date(ele.fecha).toLocaleString()
+            })
         }, err=>{
             this._router.navigate(['/login']);
         })
@@ -85,6 +91,9 @@ export class EactualizarComponent implements OnInit {
 
     }
 
+    setBorrador(value:boolean){
+        this.factura.borrador = value;
+      }    
     onSubmit(form: NgForm) {        
         if (this.objR == 'cliente') {
             this._EmpleadoService.updateCliente({
@@ -106,7 +115,8 @@ export class EactualizarComponent implements OnInit {
         } else {
             if (this.productosSelected.length>0) {
                 this._EmpleadoService.updateFactura({
-                    productos: this.productosSelected.map(ele => {return {_id: ele.producto._id, cantidad: ele.cantidad}})
+                    productos: this.productosSelected.map(ele => {return {_id: ele.producto._id, cantidad: ele.cantidad}}),
+                    borrador: this.factura.borrador
                 }, form.value.id).subscribe(resp=>{
                     this.error = "";
                     this.success = "Factura actualizada"
@@ -131,12 +141,13 @@ export class EactualizarComponent implements OnInit {
             this.cliente = obj as ClienteF;
         } else {
             this.factura = obj as FacturaF;
-            this.productosSelected = this.factura.productos.map((ele)=> {
+            this.productosSelected = this.factura.productos.map((ele)=> {                
                 return {
                     producto: this.productos.find((ele2:ProductoF)=> ele2._id === ele._id) as ProductoF,
                     cantidad: ele.cantidad
                 }
             })
+            
             this.subtotal = this.productosSelected.map(ele => ele.cantidad*ele.producto.precio).reduce((a, b) => a + b, 0)
             this.productosFilter = this.productos.filter(ele => !this.productosSelected.map(p => p.producto._id).includes(ele._id))
         }

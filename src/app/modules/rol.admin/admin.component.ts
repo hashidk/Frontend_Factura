@@ -14,7 +14,7 @@ export class AdminComponent {
   public objR: string;
   public option: number = 0;
   public admin: AdminF;
-  // public resumen:Object
+  public resumen:any;
 
   constructor(
     private _router: Router, 
@@ -25,7 +25,10 @@ export class AdminComponent {
       this.admin = new AdminF("", "", "", "", {email: "", nickname: ""}, "", "", "", "", "", "", "")
       this._AdminService.getInfo().subscribe(resp=>{
         this.admin = resp.data;
-        // this.resumen = resp.resumen;
+        console.log(this.admin);
+        this.resumen = resp.resumen;
+        console.log(this.resumen);
+        
       },err=>{
         this._router.navigate(['/login']);
       })

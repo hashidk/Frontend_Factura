@@ -1,4 +1,4 @@
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary"  @fadeIn @fadeOut>
     <ng-container *ngIf="renderCancel">
         <ui-alerta (cancel)="handleCancel($event)" [texto]="'¿Seguro que quieres activar a este empleado?'"></ui-alerta>
     </ng-container>

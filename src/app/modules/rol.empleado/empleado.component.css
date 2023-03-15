@@ -5553,7 +5553,8 @@ a:focus {
 }
 
 .sidebar {
-  width: 6.5rem;
+  width: 30%;
+  min-width: 200px;
   min-height: 100vh;
 }
 

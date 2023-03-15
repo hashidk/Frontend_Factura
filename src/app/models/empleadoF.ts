@@ -9,7 +9,12 @@ export class EmpleadoF {
             nickname:string
         },
         public admin_id: string,
-        public activo: boolean
+        public activo: boolean,
+        public empresa_nombre?: string,
+        public empresa_dir?: string,
+        public empresa_ciudad?: string,
+        public empresa_provincia?: string,
+        public empresa_pais?: string,
     ) {
     }
 

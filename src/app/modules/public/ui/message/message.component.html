@@ -1,5 +1,5 @@
 <div *ngIf="message!==''" [class]="success ? 'success' : 'error'">
     <p>
-        Muy bien: {{message}}
+        <span>{{success ? 'Muy Bien: ' : 'Error: '}}</span> {{message}}
     </p>
 </div>

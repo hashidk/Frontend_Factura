@@ -1,4 +1,4 @@
-<body class="bg-gradient-primary">
+<div @fadeIn @fadeOut>
     <ng-container *ngIf="renderCancel">
         <ui-alerta (cancel)="handleCancel($event)" [texto]="objR==='empleado' ? '¿Seguro que quieres desactivar a este empleado?' : '¿Seguro que quieres eliminar a este producto?'"></ui-alerta>
     </ng-container>
@@ -115,7 +115,7 @@
                         <tr *ngFor="let producto of productos">
                             <td>{{producto._id}}</td>
                             <td>{{producto.descripcion}} </td>
-                            <td>{{producto.precio}} </td>
+                            <td>{{producto.precio}}$</td>
                             <td style="white-space: nowrap">
                                 <a class="btn btn-primary" (click)="editar(producto)"> Editar </a>
                                 <a class="btn btn-danger" (click)="desactivar(producto._id)">
@@ -178,4 +178,4 @@
             </div>
         </div>
     </div>
-</body>
+</div>

@@ -105,3 +105,70 @@ form.user .btn-user {
     margin: 10px auto;
     padding: 5px;
 }
+
+.planes {
+    display: flex;
+    gap: 5px;
+    margin: 20px auto 10px auto;
+    justify-content: center;
+}
+
+.planes > div {
+    text-align: center;
+    background-color: white;
+    color: black;
+    box-shadow: #00add9 0px 4px 12px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.planes > div .title {
+    font-size: 1.25rem;
+    color: #224abe;
+    margin-bottom: 10px;
+}
+
+.planes > div .lista {
+    list-style: none;
+}
+
+.planes > div .info-price {
+    font-size: 0.75rem;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.planes > div .lista p{
+    text-align: left;
+    font-size: .75rem;
+}
+
+.planes > div .lista p span {
+    color: #224abe;
+    font-weight: bold;
+}
+
+.planes > div .extra-comprobantes {
+    color: #45c143;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+}
+
+
+.planes > div button{
+    padding: 5px;
+    background: transparent;
+    border: 1.5px solid #224abe;
+    border-radius: 10px;
+    transition: all 0.25s ease-in;
+}
+
+.planes > div button:hover {
+    background-color: #224abe;
+    color: white;
+}
+
+.planes > div button:focus {
+    background-color: #224abe;
+    color: white;
+}

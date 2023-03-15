@@ -1,4 +1,4 @@
-<body class="bg-gradient-primary">
+<body class="bg-gradient-primary"  @fadeIn @fadeOut>
 
     <div class="container">
         
@@ -11,19 +11,8 @@
                                 <h1 class="h4 text-gray-900 mb-4">{{title}} {{objR}}</h1>
                             </div>
 
-                            <div *ngIf="error!==''"
-                                style="background-color: rgb(241, 105, 105); display: flex; align-items: center;">
-                                <p
-                                    style="margin: 5px 10px; padding: 5px 10px; color: white; border-left: 2.5px solid white;">
-                                    Error: {{error}}</p>
-                            </div>
-                            <div *ngIf="success!==''"
-                                style="background-color: rgb(110, 241, 105); display: flex; align-items: center;">
-                                <p
-                                    style="margin: 5px 10px; padding: 5px 10px; color: white; border-left: 2.5px solid white;">
-                                    Muy bien: {{success}}</p>
-                            </div>
-
+                            <ui-message [message]="error" [success]=false></ui-message>
+                            <ui-message [message]="success" [success]=true></ui-message>
                             <!-- Form Crear Empleado -->
                             <ng-container *ngIf="objR=='cliente'">
                                 <form class="user" #formCli="ngForm" (ngSubmit)="onSubmit(formCli)" class="form">
@@ -170,7 +159,9 @@
                                     <br>
                                     <span *ngIf="!formFac.form.valid"> Recuerde revisar los campos </span>
                                     <br>
-                                    <input type="submit" name="Guardar" value="Guardar"
+                                    <input type="submit" (click)="setBorrador(true)"  name="Borrador" value="Guardar como borrador" 
+                                        [disabled]="!id.valid && productosSelected.length===0" class="btn btn-secondary btn-user btn-block">
+                                    <input type="submit" (click)="setBorrador(false)" name="Guardar" value="Guardar"
                                         [disabled]="!id.valid && productosSelected.length===0" class="btn btn-primary btn-user btn-block">
                                 </form>
                             </ng-container>
