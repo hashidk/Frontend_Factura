@@ -11,6 +11,7 @@
 
     <nav>
         <a [routerLink]="'/home'" [routerLinkActive]="'active'">Inicio</a> &nbsp;
+        <a href="/home#formulario_de_contacto">Contacto</a>
         <a *ngIf="rol===''" [routerLink]="'/sistema'" [routerLinkActive]="'active'">Ingresar</a> &nbsp;
         <a *ngIf="rol===''" [routerLink]="'/register'" [routerLinkActive]="'active'">Registrarse</a> &nbsp;
         <a *ngIf="rol!==''" [routerLink]="'/sistema'" [routerLinkActive]="'active'">Sistema</a> &nbsp;

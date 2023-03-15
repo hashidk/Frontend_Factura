@@ -79,6 +79,10 @@ export class EactualizarComponent implements OnInit {
             this._router.navigate(['/login']);
           })
         
+        this.getProducts();
+    }
+
+    getProducts(){
         this._EmpleadoService.getProductos().subscribe(resp=>{
             this.productos = resp.data;
             this.productosFilter = resp.data;
@@ -141,6 +145,7 @@ export class EactualizarComponent implements OnInit {
             this.cliente = obj as ClienteF;
         } else {
             this.factura = obj as FacturaF;
+            this.getProducts();
             this.productosSelected = this.factura.productos.map((ele)=> {                
                 return {
                     producto: this.productos.find((ele2:ProductoF)=> ele2._id === ele._id) as ProductoF,
